@@ -1,0 +1,21 @@
+<h2>Transactions</h2>
+
+<table class="table">
+  <tr>
+    <th>#</th>
+    <th>AccountNumber</th>
+    <th>Amount</th>
+    <th>Date</th>
+    <th>BeneficiaryOrPayerName</th>
+    <th>Details</th>
+
+  </tr>
+  <tr *ngFor="let t of transactionList; let i = index">
+    <td>{{i + 1}}</td>
+    <td>{{t.accountNumber}}</td>
+    <td>{{t.amount}}</td>
+    <td>{{t.date}}</td>
+    <td>{{t.beneficiaryOrPayerName}}</td>
+    <td>{{t.details}}</td>
+  </tr>
+</table>
