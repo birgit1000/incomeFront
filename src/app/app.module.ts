@@ -9,8 +9,10 @@ import {RouterModule, Routes} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 
+
 const routes: Routes = [
-  { path: 'home', component: HomeComponent}
+  { path: 'home', component: HomeComponent},
+  { path: 'upload', component: UploadComponent}
 ];
 
 @NgModule({
@@ -18,7 +20,8 @@ const routes: Routes = [
     AppComponent,
     UploadComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,

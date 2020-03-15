@@ -1,0 +1,13 @@
+.nav-item{
+  padding:2px;
+  margin-left: 7px;
+}
+
+.logo-image{
+  width: 46px;
+  height: 46px;
+  overflow: hidden;
+}
+.nav-item{
+  color: darkgrey;
+}

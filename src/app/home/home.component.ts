@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Transaction} from '../Models/Transaction';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,6 +10,7 @@ import {Transaction} from '../Models/Transaction';
 })
 export class HomeComponent implements OnInit {
   transactionList: Transaction[];
+  selectedTransaction;
 
   constructor(private http: HttpClient) { }
 
@@ -16,5 +18,9 @@ export class HomeComponent implements OnInit {
       this.http.get<Transaction[]>('http://localhost:8080/api/transactions/all').subscribe(result => {
         this.transactionList = result;
       }, error => console.log(error));
+  }
+
+  public selectTransaction(transaction) {
+    this.selectedTransaction = transaction;
   }
 }
