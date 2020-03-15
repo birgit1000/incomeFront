@@ -8,11 +8,15 @@ import { HomeComponent } from './home/home.component';
 import {RouterModule, Routes} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { IncomeStatementTypesComponent } from './income-statement-types/income-statement-types.component';
 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
-  { path: 'upload', component: UploadComponent}
+  { path: 'upload', component: UploadComponent},
+  { path: 'transactions', component: TransactionsComponent},
+  { path: 'incomeStatementTypes', component: IncomeStatementTypesComponent}
 ];
 
 @NgModule({
@@ -21,7 +25,9 @@ const routes: Routes = [
     UploadComponent,
     HomeComponent,
     NavbarComponent,
-    UploadComponent
+    UploadComponent,
+    TransactionsComponent,
+    IncomeStatementTypesComponent
   ],
   imports: [
     BrowserModule,

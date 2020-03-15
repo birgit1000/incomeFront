@@ -1,3 +1,5 @@
+import {IncomeStatementType} from './IncomeStatementType';
+
 export class Transaction {
   accountNumber: string;
   date: Date;
@@ -7,5 +9,5 @@ export class Transaction {
   amount: number;
   currency: string;
   debitOrCredit: string;
-  incomeStatementType: string;
+  incomeStatementType: IncomeStatementType;
 }
