@@ -1,6 +1,7 @@
 import {IncomeStatementType} from './IncomeStatementType';
 
 export class Transaction {
+  id: string;
   accountNumber: string;
   date: Date;
   beneficiaryOrPayerAccount: string;
