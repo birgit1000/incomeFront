@@ -1,0 +1,13 @@
+.dropdown-item{
+  font-size: 15px;
+  width: 80%;
+}
+.dropdown-menu{
+  width: 100%;
+  overflow: hidden;
+}
+
+.col-sm-12{
+  padding-left: 30px;
+  padding-right: 30px;
+}

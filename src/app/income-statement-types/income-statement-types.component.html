@@ -1,0 +1,17 @@
+<div class="container-fluid" style="margin-top: 70px;">
+  <h2>Income statement types</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let t of incomeStatementTypeList; let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{t}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
