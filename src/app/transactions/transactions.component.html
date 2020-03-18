@@ -1,50 +1,50 @@
 <div class="container-fluid" style="margin-top: 70px;">
   <h2 style="padding-bottom: 10px">Your transactions</h2>
-  <!--(click)="selectTransaction(t-->
   <div class="row">
     <div class="col-sm-1"></div>
     <div class="col-sm-11">
-<!--      <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">-->
-      <button class="btn btn-success"  type="submit" style="float: right;margin-bottom: 25px;">Save changes</button>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th></th>
-          <th>Account Number</th>
-          <th>Date</th>
-          <th>Amount</th>
-          <th>Beneficiary Or Payer Name</th>
-          <th>Beneficiary Or Payer Account</th>
-          <th>Details</th>
-          <th>Currency</th>
-          <th>Debit/Credit</th>
-          <th>Income Statement Type</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let t of transactionList; let i = index">
-          <td>{{i + 1}}</td>
-          <td>{{t.accountNumber}}</td>
-          <td>{{t.date}}</td>
-          <td>{{t.amount}}</td>
-          <td>{{t.beneficiaryOrPayerName}}</td>
-          <td>{{t.beneficiaryOrPayerAccount}}</td>
-          <td>{{t.details}}</td>
-          <td>{{t.currency}}</td>
-          <td>{{t.debitOrCredit}}</td>
-          <td>
+      <form [formGroup]="formGroup" (ngSubmit)="submit()">
+        <button class="btn btn-success" type="submit">Save changes</button>
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th></th>
+              <th>Account Number</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Beneficiary Or Payer Name</th>
+              <th>Beneficiary Or Payer Account</th>
+              <th>Details</th>
+              <th>Currency</th>
+              <th>Debit/Credit</th>
+              <th>Income Statement Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let t of transactionList; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{t.accountNumber}}</td>
+              <td>{{t.date}}</td>
+              <td>{{t.amount}}</td>
+              <td>{{t.beneficiaryOrPayerName}}</td>
+              <td>{{t.beneficiaryOrPayerAccount}}</td>
+              <td>{{t.details}}</td>
+              <td>{{t.currency}}</td>
+              <td>{{t.debitOrCredit}}</td>
+              <td>
 
-              <select>
-                <option value="0"  style="column-width: 500px;">Select type</option>
-                <option  formControlName="incomeStatementType" *ngFor="let in of incomeStatementTypeList; let i = index" value={{in}}>
-                  {{i + 1}}{{". "}}{{ in}}
-                </option>
-              </select>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-<!--      </form>-->
+                <select>
+                  <option value="0" style="column-width: 500px;">Select type</option>
+                  <option *ngFor="let in of incomeStatementTypeList; let i = index"
+                          value={{in}}>
+                    {{i + 1}}{{". "}}{{ in}}
+                  </option>
+                </select>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+      </form>
+    </div>
   </div>
-</div>
 </div>
