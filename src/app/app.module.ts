@@ -11,7 +11,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { IncomeStatementTypesComponent } from './income-statement-types/income-statement-types.component';
 import {ReactiveFormsModule} from '@angular/forms';
-
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -35,7 +36,9 @@ const routes: Routes = [
         AppRoutingModule,
         RouterModule.forRoot(routes),
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule,
+      CommonModule
     ],
   providers: [],
   bootstrap: [AppComponent]

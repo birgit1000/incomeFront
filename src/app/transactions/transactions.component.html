@@ -32,12 +32,13 @@
               <td>{{t.currency}}</td>
               <td>{{t.debitOrCredit}}</td>
               <td>
-
-                <select>
-                  <option value="0" style="column-width: 500px;">Select type</option>
-                  <option *ngFor="let in of incomeStatementTypeList; let i = index"
-                          value={{in}}>
-                    {{i + 1}}{{". "}}{{ in}}
+                <p *ngIf="!!t.incomeStatementType">Current value: {{t.incomeStatementType}}</p>
+                <select [ngModel]="t" (change)="changeIncomeStatementType(t, $event)" [ngModelOptions]="{standalone: true}">
+                  <option *ngIf="!!t.incomeStatementType"  style="column-width: 500px;">{{t.incomeStatementType}}</option>
+                  <option
+                          *ngFor="let type of incomeStatementTypeList; let j = index"
+                          [ngValue]="this.type">
+                    {{j + 1}}{{". "}}{{type}}
                   </option>
                 </select>
               </td>

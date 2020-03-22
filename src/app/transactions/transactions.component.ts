@@ -3,8 +3,7 @@ import {Transaction} from '../Models/Transaction';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {IncomeStatementType} from '../Models/IncomeStatementType';
 import 'bootstrap/dist/js/bootstrap.bundle';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {parse} from 'ts-node';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-transactions',
@@ -15,6 +14,7 @@ export class TransactionsComponent implements OnInit {
   transactionList: Transaction[];
   incomeStatementTypeList: IncomeStatementType[];
   formGroup: FormGroup;
+  selectedType;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -26,6 +26,15 @@ export class TransactionsComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       arr: this.formBuilder.array([])
     });
+  }
+
+  ngOnInit(): void {      this.http.get<Transaction[]>('http://localhost:8080/api/transactions/all').subscribe(result => {
+    this.transactionList = result;
+  }, error => console.log(error));
+
+                          this.http.get<IncomeStatementType[]>('http://localhost:8080/api/incomeStatements/all').subscribe(result => {
+      this.incomeStatementTypeList = result;
+    }, error => console.log(error));
   }
 
   submit() {
@@ -48,12 +57,22 @@ export class TransactionsComponent implements OnInit {
     console.log(this.transactionList);
   }
 
-  ngOnInit(): void {      this.http.get<Transaction[]>('http://localhost:8080/api/transactions/all').subscribe(result => {
-    this.transactionList = result;
-    }, error => console.log(error));
 
-                          this.http.get<IncomeStatementType[]>('http://localhost:8080/api/incomeStatements/all').subscribe(result => {
-      this.incomeStatementTypeList = result;
-    }, error => console.log(error));
-  }
+  changeIncomeStatementType(t, e) {
+    console.log(t, e.target.value);
+    this.http.post('http://localhost:8080/api/transactions/update/' + t.id
+    , e.target.value.split(' ')[1])
+      .subscribe(
+        (val) => {
+          console.log('POST call successful value returned in body',
+            val);
+        },
+        response => {
+          console.log('POST call in error', response);
+        },
+        () => {
+          console.log('The POST observable is now completed. ');
+        });
+
+}
 }
