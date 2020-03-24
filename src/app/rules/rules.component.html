@@ -1,0 +1,36 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="container" style="margin-top: 100px;">
+      <form [formGroup]="formGroup" (ngSubmit)="submit()" class="form" >
+          <h1 style="padding-bottom: 10px">Add new rule</h1>
+          <hr>
+        <div class="form-group input-group-lg">
+          <label>Rule name: </label>
+          <input class="form-control" placeholder="" formControlName="name">
+        </div>
+        <div class="form-group input-group-lg">
+          <label>Rule 1: Beneficiary Or Payer Account of Transaction: </label>
+        <input class="form-control" placeholder="" formControlName="transactionBeneficiaryOrPayerAccount">
+      </div>
+        <div class="form-group input-group-lg">
+          <label>Rule 2: Beneficiary Or Payer Name of Transaction: </label>
+          <input class="form-control" placeholder="" formControlName="transactionBeneficiaryOrPayerName">
+        </div>
+        <div class="form-group input-group-lg">
+          <label>Rule 3: Details of Transaction:</label>
+          <input class="form-control" placeholder="" formControlName="transactionDetails">
+        </div>
+          <label>Income Statement Type of Transaction:</label>
+        <div class="form-group dropdown-menu-left-lg">
+        <select formControlName="incomeStatementType">
+          <option
+                  *ngFor="let type of incomeStatementTypeList; let j = index"
+            [ngValue]="this.type">
+            {{j + 1}}{{". "}}{{type}}
+          </option>
+        </select>
+        </div>
+          <div class="navbar-button form-element">
+            <button class="btn btn-success" type="submit" class="button" style="float: right;">Add</button>
+          </div>
+      </form>
+</div>

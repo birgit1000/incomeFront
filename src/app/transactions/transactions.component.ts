@@ -14,12 +14,6 @@ export class TransactionsComponent implements OnInit {
   transactionList: Transaction[];
   incomeStatementTypeList: IncomeStatementType[];
   formGroup: FormGroup;
-  selectedType;
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
 
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {

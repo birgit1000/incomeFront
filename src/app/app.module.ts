@@ -13,12 +13,14 @@ import { IncomeStatementTypesComponent } from './income-statement-types/income-s
 import {ReactiveFormsModule} from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RulesComponent } from './rules/rules.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'upload', component: UploadComponent},
   { path: 'transactions', component: TransactionsComponent},
-  { path: 'incomeStatementTypes', component: IncomeStatementTypesComponent}
+  { path: 'incomeStatementTypes', component: IncomeStatementTypesComponent},
+  { path: 'rules', component: RulesComponent}
 ];
 
 @NgModule({
@@ -29,7 +31,8 @@ const routes: Routes = [
     NavbarComponent,
     UploadComponent,
     TransactionsComponent,
-    IncomeStatementTypesComponent
+    IncomeStatementTypesComponent,
+    RulesComponent
   ],
     imports: [
         BrowserModule,

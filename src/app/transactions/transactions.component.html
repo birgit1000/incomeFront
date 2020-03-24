@@ -1,10 +1,11 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="container-fluid" style="margin-top: 70px;">
   <h2 style="padding-bottom: 10px">Your transactions</h2>
   <div class="row">
     <div class="col-sm-1"></div>
     <div class="col-sm-11">
       <form [formGroup]="formGroup" (ngSubmit)="submit()">
-        <button class="btn btn-success" type="submit">Save changes</button>
+<!--        <button class="btn btn-success" type="submit">Save changes</button>-->
           <table class="table table-striped">
             <thead>
             <tr>
@@ -34,7 +35,7 @@
               <td>
                 <p *ngIf="!!t.incomeStatementType">Current value: {{t.incomeStatementType}}</p>
                 <select [ngModel]="t" (change)="changeIncomeStatementType(t, $event)" [ngModelOptions]="{standalone: true}">
-                  <option *ngIf="!!t.incomeStatementType"  style="column-width: 500px;">{{t.incomeStatementType}}</option>
+<!--                  <option *ngIf="!!t.incomeStatementType"  style="column-width: 500px;">{{t.incomeStatementType}}</option>-->
                   <option
                           *ngFor="let type of incomeStatementTypeList; let j = index"
                           [ngValue]="this.type">
