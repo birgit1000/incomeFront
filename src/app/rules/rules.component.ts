@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
-import {Rule} from '../Models/Rule';
 import {IncomeStatementType} from '../Models/IncomeStatementType';
 
 @Component({
@@ -12,6 +11,9 @@ import {IncomeStatementType} from '../Models/IncomeStatementType';
 export class RulesComponent implements OnInit {
   formGroup: FormGroup;
   incomeStatementTypeList: IncomeStatementType[];
+  alertMessage: string;
+  isSuccess: boolean;
+  isError: boolean;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {
     this.createForm();
@@ -28,8 +30,8 @@ export class RulesComponent implements OnInit {
       name: [null],
       transactionBeneficiaryOrPayerAccount: [null],
       transactionBeneficiaryOrPayerName: [null],
-      transactionDetails: [null],
-      incomeStatementType: [null]
+      transactionDetails: [null, Validators.required],
+      incomeStatementType: [null, Validators.required]
     });
   }
 
@@ -41,15 +43,17 @@ export class RulesComponent implements OnInit {
         (val) => {
           console.log('POST call successful value returned in body',
             val);
+          this.isSuccess = true;
+          this.alertMessage = 'Rule inserted successfully!';
         },
         response => {
           console.log('POST call in error', response);
+          this.isError = true;
+          this.alertMessage = 'Rule was not inserted. Try again!';
         },
         () => {
           console.log('The POST observable is now completed. ');
         });
-
-
     console.log(this.formGroup.value);
   }
 }

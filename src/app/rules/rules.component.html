@@ -1,11 +1,17 @@
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="container" style="margin-top: 100px;">
+  <div class="alert success" *ngIf=isSuccess>
+  <strong>{{alertMessage}}</strong>
+</div>
+  <div class="alert warning" *ngIf=isError>
+    <strong>{{alertMessage}}</strong>
+  </div>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
       <form [formGroup]="formGroup" (ngSubmit)="submit()" class="form" >
           <h1 style="padding-bottom: 10px">Add new rule</h1>
           <hr>
         <div class="form-group input-group-lg">
           <label>Rule name: </label>
-          <input class="form-control" placeholder="" formControlName="name">
+          <input class="form-control" placeholder="If no name provided then rule is named Default" formControlName="name" ng-required="required">
         </div>
         <div class="form-group input-group-lg">
           <label>Rule 1: Beneficiary Or Payer Account of Transaction: </label>
@@ -17,11 +23,11 @@
         </div>
         <div class="form-group input-group-lg">
           <label>Rule 3: Details of Transaction:</label>
-          <input class="form-control" placeholder="" formControlName="transactionDetails">
+          <input class="form-control" placeholder="" formControlName="transactionDetails" id="transactionDetails" required>
         </div>
           <label>Income Statement Type of Transaction:</label>
-        <div class="form-group dropdown-menu-left-lg">
-        <select formControlName="incomeStatementType">
+        <div class="form-group dropdown-menu-left-lg" required>
+        <select formControlName="incomeStatementType" >
           <option
                   *ngFor="let type of incomeStatementTypeList; let j = index"
             [ngValue]="this.type">
