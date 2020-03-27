@@ -52,10 +52,11 @@ export class TransactionsComponent implements OnInit {
   }
 
 
-  changeIncomeStatementType(t, e) {
-    console.log(t, e.target.value);
+    changeIncomeStatementType(t, event: any) {
+    const selected = event.target.options[event.target.selectedIndex].text;
+    console.log(t, selected);
     this.http.post('http://localhost:8080/api/transactions/update/' + t.id
-    , e.target.value.split(' ')[1])
+    ,  selected.split(' ')[1])
       .subscribe(
         (val) => {
           console.log('POST call successful value returned in body',
