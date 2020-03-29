@@ -1,0 +1,30 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="container-fluid" style="margin-top: 70px;">
+  <h2 style="padding-bottom: 10px">Your income statement report</h2>
+    <div class="col-sm-11">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Income Statement Type</th>
+            <th>Sum</th>
+            <th>Transactions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let r of report.rows; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{r.incomeStatementType}}</td>
+            <td>{{r.sum}}</td>
+            <td width="50%" ><button class="btn-info" (click)="toggle(r)">Show transactions</button>
+         <ul *ngIf="selectedRow == r">
+           <div *ngFor="let t of r.transactions">
+            <li>Name: {{t.beneficiaryOrPayerName}}, Account: {{t.beneficiaryOrPayerAccount}}, Details: {{t.details}}, Date: {{t.date}}, Amount: {{t.amount}}</li>
+           </div>
+            </ul>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+    </div>
+</div>

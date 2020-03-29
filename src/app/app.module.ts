@@ -14,13 +14,19 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RulesComponent } from './rules/rules.component';
+import { ReportComponent } from './report/report.component';
+import { RuleDialogComponent } from './rule-dialog/rule-dialog.component';
+import { MatDialogModule} from '@angular/material/dialog';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'upload', component: UploadComponent},
   { path: 'transactions', component: TransactionsComponent},
   { path: 'incomeStatementTypes', component: IncomeStatementTypesComponent},
-  { path: 'rules', component: RulesComponent}
+  { path: 'rules', component: RulesComponent},
+  { path: 'report', component: ReportComponent}
 ];
 
 @NgModule({
@@ -32,8 +38,11 @@ const routes: Routes = [
     UploadComponent,
     TransactionsComponent,
     IncomeStatementTypesComponent,
-    RulesComponent
+    RulesComponent,
+    ReportComponent,
+    RuleDialogComponent
   ],
+  entryComponents: [RuleDialogComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -41,7 +50,9 @@ const routes: Routes = [
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
-      CommonModule
+      CommonModule,
+      MatDialogModule,
+      BrowserAnimationsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

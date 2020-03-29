@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Transaction} from '../Models/Transaction';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {IncomeStatementType} from '../Models/IncomeStatementType';
@@ -22,11 +22,12 @@ export class TransactionsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {      this.http.get<Transaction[]>('http://localhost:8080/api/transactions/all').subscribe(result => {
-    this.transactionList = result;
-  }, error => console.log(error));
+  ngOnInit(): void {
+    this.http.get<Transaction[]>('http://localhost:8080/api/transactions/all').subscribe(result => {
+      this.transactionList = result;
+    }, error => console.log(error));
 
-                          this.http.get<IncomeStatementType[]>('http://localhost:8080/api/incomeStatements/all').subscribe(result => {
+    this.http.get<IncomeStatementType[]>('http://localhost:8080/api/incomeStatements/all').subscribe(result => {
       this.incomeStatementTypeList = result;
     }, error => console.log(error));
   }
@@ -34,7 +35,7 @@ export class TransactionsComponent implements OnInit {
   submit() {
     this.http.post('http://localhost:8080/api/transactions/update',
       this.transactionList
-      )
+    )
       .subscribe(
         (val) => {
           console.log('POST call successful value returned in body',
@@ -52,11 +53,11 @@ export class TransactionsComponent implements OnInit {
   }
 
 
-    changeIncomeStatementType(t, event: any) {
+  changeIncomeStatementType(t, event: any) {
     const selected = event.target.options[event.target.selectedIndex].text;
     console.log(t, selected);
     this.http.post('http://localhost:8080/api/transactions/update/' + t.id
-    ,  selected.split(' ')[1])
+      , selected.split(' ')[1])
       .subscribe(
         (val) => {
           console.log('POST call successful value returned in body',
@@ -68,6 +69,9 @@ export class TransactionsComponent implements OnInit {
         () => {
           console.log('The POST observable is now completed. ');
         });
+  }
 
-}
+  refresh(): void {
+    window.location.reload();
+  }
 }

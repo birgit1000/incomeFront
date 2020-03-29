@@ -1,0 +1,42 @@
+<mat-dialog-content>
+  <div class="alert success" *ngIf=isSuccess>
+    <strong>{{alertMessage}}</strong>
+  </div>
+  <div class="alert warning" *ngIf=isError>
+    <strong>{{alertMessage}}</strong>
+  </div>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <form [formGroup]="formGroup" (ngSubmit)="submit()" class="form">
+    <h1 style="padding-bottom: 10px">Add new rule</h1>
+    <hr>
+    <div class="form-group input-group-lg">
+      <label>Rule name: </label>
+      <input class="form-control" placeholder="If no name provided then rule is named as Default"
+             formControlName="name" ng-required="required">
+    </div>
+    <div class="form-group input-group-lg">
+      <label>Rule 1: Beneficiary Or Payer Account of Transaction: </label>
+      <input class="form-control" placeholder="" formControlName="transactionBeneficiaryOrPayerAccount">
+    </div>
+    <div class="form-group input-group-lg">
+      <label>Rule 2: Beneficiary Or Payer Name of Transaction: </label>
+      <input class="form-control" placeholder="" formControlName="transactionBeneficiaryOrPayerName">
+    </div>
+    <div class="form-group input-group-lg">
+      <label>Rule 3: Details of Transaction:</label>
+      <input class="form-control" placeholder="" formControlName="transactionDetails" id="transactionDetails" required>
+    </div>
+    <label>Income Statement Type of Transaction:</label>
+    <div class="form-group dropdown-menu-left-lg" required>
+      <select formControlName="incomeStatementType">
+        <option
+          *ngFor="let type of incomeStatementTypeList; let j = index"
+          [ngValue]="this.type">
+          {{j + 1}}{{". "}}{{type}}
+        </option>
+      </select>
+    </div>
+  </form>
+    <button class="btn btn-success" (click)="submit()" style="float: right">Add</button>
+    <button class="btn btn-danger" (click)="close()">Close</button>
+</mat-dialog-content>
