@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {IncomeStatementType} from '../Models/IncomeStatementType';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {Rule} from '../Models/Rule';
 
 @Component({
   selector: 'app-transactions',
@@ -23,13 +24,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get<Transaction[]>('http://localhost:8080/api/transactions/all').subscribe(result => {
-      this.transactionList = result;
-    }, error => console.log(error));
-
-    this.http.get<IncomeStatementType[]>('http://localhost:8080/api/incomeStatements/all').subscribe(result => {
-      this.incomeStatementTypeList = result;
-    }, error => console.log(error));
+    this.get();
   }
 
   submit() {
@@ -73,5 +68,28 @@ export class TransactionsComponent implements OnInit {
 
   refresh(): void {
     window.location.reload();
+  }
+
+  remove(id: any): void {
+    this.http.delete<Transaction>('http://localhost:8080/api/transactions/delete/' + id).subscribe(
+      (val) => {
+        console.log('DELETE call successful');
+        this.get();
+      },
+      response => {
+        console.log('DELETE call in error', response);
+      },
+      () => {
+        console.log('The DELETE observable is now completed. ');
+      });
+  }
+
+  get(): void {
+    this.http.get<Transaction[]>('http://localhost:8080/api/transactions/all').subscribe(result => {
+      this.transactionList = result;
+    }, error => console.log(error));
+    this.http.get<IncomeStatementType[]>('http://localhost:8080/api/incomeStatements/all').subscribe(result => {
+      this.incomeStatementTypeList = result;
+    }, error => console.log(error));
   }
 }

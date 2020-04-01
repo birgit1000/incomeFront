@@ -62,6 +62,7 @@ export class RuleDialogComponent implements OnInit {
 
   close(): void {
     this.dialogRef.close();
+    window.location.reload();
   }
 
 }

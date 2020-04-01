@@ -1,1 +1,38 @@
-<p>upload works!</p>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="container-fluid" style="margin-top: 70px;">
+  <h3 style="padding: 10px; margin: 5px">Your uploaded files </h3>
+  <div class="col-sm-7">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Upload date</th>
+        <th>Transactions</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let f of files; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{f.name}}</td>
+        <td>{{f.uploadDate}}</td>
+        <td>{{f.transactions}}</td>
+        <td>
+          <button class="btn btn-danger" (click)="remove(f.id)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <hr class="solid" style="color: darkgrey">
+  <div class="file-upload-wrapper">
+    <form (ngSubmit)="upload()" [formGroup]="form">
+      <input ng-model="file_upload" name="file" type="file" (change)="fileChange($event)" #fileInput>
+      <div>
+        <button class="btn btn-info" type="submit" style="float: right; margin: 5px">Upload</button>
+      </div>
+    </form>
+  </div>
+</div>
+
