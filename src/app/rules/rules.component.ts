@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import {RuleDialogComponent} from '../rule-dialog/rule-dialog.component';
 import {IncomeStatementType} from '../Models/IncomeStatementType';
 import {HttpClient} from '@angular/common/http';
 import {Rule} from '../Models/Rule';
 import {Observable} from 'rxjs';
+import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
+import {environment} from '../../environments/environment';
 
 
 @Component({
@@ -15,8 +17,7 @@ import {Observable} from 'rxjs';
 export class RulesComponent implements OnInit {
   rules: Rule[];
 
-  constructor(private dialog: MatDialog, private http: HttpClient) {
-  }
+  constructor(private dialog: MatDialog, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.get();
@@ -27,7 +28,7 @@ export class RulesComponent implements OnInit {
   }
 
   remove(id: any): void {
-    this.http.delete<Rule>('http://localhost:8080/api/rule/delete/' + id).subscribe(
+    this.http.delete<Rule>(environment.apiUrl + 'rule/delete/' + id).subscribe(
       (val) => {
         console.log('DELETE call successful');
         this.get();
@@ -41,7 +42,7 @@ export class RulesComponent implements OnInit {
   }
 
   get(): void {
-    this.http.get<Rule[]>('http://localhost:8080/api/rule/all').subscribe(result => {
+    this.http.get<Rule[]>(environment.apiUrl + 'rule/all').subscribe(result => {
       this.rules = result;
     }, error => console.log(error));
   }

@@ -5,6 +5,7 @@ import {IncomeStatementType} from '../Models/IncomeStatementType';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Rule} from '../Models/Rule';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-transactions',
@@ -28,7 +29,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   submit() {
-    this.http.post('http://localhost:8080/api/transactions/update',
+    this.http.post(environment.apiUrl + 'transactions/update',
       this.transactionList
     )
       .subscribe(
@@ -51,7 +52,7 @@ export class TransactionsComponent implements OnInit {
   changeIncomeStatementType(t, event: any) {
     const selected = event.target.options[event.target.selectedIndex].text;
     console.log(t, selected);
-    this.http.post('http://localhost:8080/api/transactions/update/' + t.id
+    this.http.post(environment.apiUrl + '/transactions/update/' + t.id
       , selected.split(' ')[1])
       .subscribe(
         (val) => {
@@ -71,7 +72,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   remove(id: any): void {
-    this.http.delete<Transaction>('http://localhost:8080/api/transactions/delete/' + id).subscribe(
+    this.http.delete<Transaction>(environment.apiUrl + 'transactions/delete/' + id).subscribe(
       (val) => {
         console.log('DELETE call successful');
         this.get();
@@ -85,10 +86,10 @@ export class TransactionsComponent implements OnInit {
   }
 
   get(): void {
-    this.http.get<Transaction[]>('http://localhost:8080/api/transactions/all').subscribe(result => {
+    this.http.get<Transaction[]>(environment.apiUrl + 'transactions/all').subscribe(result => {
       this.transactionList = result;
     }, error => console.log(error));
-    this.http.get<IncomeStatementType[]>('http://localhost:8080/api/incomeStatements/all').subscribe(result => {
+    this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatement/all').subscribe(result => {
       this.incomeStatementTypeList = result;
     }, error => console.log(error));
   }

@@ -4,6 +4,7 @@ import {IncomeStatementType} from '../Models/IncomeStatementType';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Rule} from '../Models/Rule';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-rule-dialog',
@@ -23,7 +24,8 @@ export class RuleDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get<IncomeStatementType[]>('http://localhost:8080/api/incomeStatements/all').subscribe(result => {
+    this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatement/all')
+      .subscribe(result => {
       this.incomeStatementTypeList = result;
     }, error => console.log(error));
   }
@@ -39,7 +41,7 @@ export class RuleDialogComponent implements OnInit {
   }
 
   submit() {
-    this.http.post('http://localhost:8080/api/rule/insert',
+    this.http.post(environment.apiUrl + 'rule/insert',
       this.formGroup.value
     )
       .subscribe(

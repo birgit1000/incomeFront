@@ -3,6 +3,7 @@ import {Report} from '../Models/Report';
 import {Transaction} from '../Models/Transaction';
 import {HttpClient} from '@angular/common/http';
 import {ReportRow} from '../Models/ReportRow';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-report',
@@ -12,14 +13,12 @@ import {ReportRow} from '../Models/ReportRow';
 export class ReportComponent implements OnInit {
   report: Report;
   selectedRow: ReportRow;
-  hidden: boolean;
-  showMessage: string;
 
   constructor(private http: HttpClient) {
   }
 
   ngOnInit(): void {
-    this.http.get<Report>('http://localhost:8080/api/report/new').subscribe(result => {
+    this.http.get<Report>(environment.apiUrl + 'report/new').subscribe(result => {
       this.report = result;
     }, error => console.log(error));
   }

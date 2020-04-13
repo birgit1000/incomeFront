@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IncomeStatementType} from '../Models/IncomeStatementType';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-income-statement-types',
@@ -12,9 +13,9 @@ export class IncomeStatementTypesComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get<IncomeStatementType[]>('http://localhost:8080/api/incomeStatements/all').subscribe(result => {
+    this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatement/all')
+      .subscribe(result => {
       this.incomeStatementTypeList = result;
     }, error => console.log(error));
   }
-
 }

@@ -17,7 +17,7 @@
         <td>{{i + 1}}</td>
         <td>{{f.name}}</td>
         <td>{{f.uploadDate}}</td>
-        <td>{{f.transactions}}</td>
+        <td>{{f.transactions.entries()}}</td>
         <td>
           <button class="btn btn-danger" (click)="remove(f.id)">Remove</button>
         </td>
@@ -25,13 +25,33 @@
       </tbody>
     </table>
   </div>
+  <form class="md-form">
+    <div class="file-field">
+      <div class="btn btn-primary btn-sm float-left">
+        <span>Choose file</span>
+        <input type="file">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" placeholder="Upload your file">
+      </div>
+    </div>
+  </form>
   <hr class="solid" style="color: darkgrey">
   <div class="file-upload-wrapper">
     <form (ngSubmit)="upload()" [formGroup]="form">
+      <select>
+        <option
+          *ngFor="let b of banks"
+          [ngValue]="this.b">
+          {{b}}
+        </option>
+      </select>
+        <div>
       <input ng-model="file_upload" name="file" type="file" (change)="fileChange($event)" #fileInput>
       <div>
-        <button class="btn btn-info" type="submit" style="float: right; margin: 5px">Upload</button>
+        <button class="btn btn-info" type="submit" style="float: left; margin: 5px">Upload</button>
       </div>
+        </div>
     </form>
   </div>
 </div>

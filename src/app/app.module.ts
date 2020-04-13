@@ -18,6 +18,8 @@ import { ReportComponent } from './report/report.component';
 import { RuleDialogComponent } from './rule-dialog/rule-dialog.component';
 import { MatDialogModule} from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {StorageServiceModule} from 'angular-webstorage-service';
+import {environment} from '../environments/environment';
 
 
 const routes: Routes = [
@@ -54,7 +56,7 @@ const routes: Routes = [
       MatDialogModule,
       BrowserAnimationsModule
     ],
-  providers: [],
+  providers: [{ provide: 'BASE_API_URL', useValue: environment.apiUrl }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
