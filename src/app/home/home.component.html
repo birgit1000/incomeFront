@@ -1,3 +1,13 @@
-<div class="container" style="margin-top: 70px;">
-  <h2>Welcome!</h2>
+<div class="container">
+<header class="jumbotron">
+  <div *ngIf="!isLoggedIn">
+      Welcome to the income statement report service!
+      You can use this application without creating an account. Your data will be deleted after 1 hour you've uploaded your file.
+      Also you will be missing some features like bank rules to automate your parsing.
+
+    As a registered used you can create your own bank rules or add them from your transactions. Also you can log in anytime to access your data.
+    You have always right to delete your data.
+      <a href="/profile" routerLink="profile">Hello!</a>
+    </div>
+</header>
 </div>

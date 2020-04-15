@@ -18,18 +18,12 @@ import { ReportComponent } from './report/report.component';
 import { RuleDialogComponent } from './rule-dialog/rule-dialog.component';
 import { MatDialogModule} from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {StorageServiceModule} from 'angular-webstorage-service';
 import {environment} from '../environments/environment';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 
-const routes: Routes = [
-  { path: 'home', component: HomeComponent},
-  { path: 'upload', component: UploadComponent},
-  { path: 'transactions', component: TransactionsComponent},
-  { path: 'incomeStatementTypes', component: IncomeStatementTypesComponent},
-  { path: 'rules', component: RulesComponent},
-  { path: 'report', component: ReportComponent}
-];
+const routes: Routes = [];
 
 @NgModule({
   declarations: [
@@ -42,7 +36,9 @@ const routes: Routes = [
     IncomeStatementTypesComponent,
     RulesComponent,
     ReportComponent,
-    RuleDialogComponent
+    RuleDialogComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   entryComponents: [RuleDialogComponent],
     imports: [

@@ -25,20 +25,11 @@
       </tbody>
     </table>
   </div>
-  <form class="md-form">
-    <div class="file-field">
-      <div class="btn btn-primary btn-sm float-left">
-        <span>Choose file</span>
-        <input type="file">
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" placeholder="Upload your file">
-      </div>
-    </div>
-  </form>
   <hr class="solid" style="color: darkgrey">
-  <div class="file-upload-wrapper">
-    <form (ngSubmit)="upload()" [formGroup]="form">
+  <form (ngSubmit)="upload()" [formGroup]="form">
+    <div class="form-group">
+      <h6 style="margin-bottom: 30px">Upload your CSV or XML file type bank statement file and choose correct bank</h6>
+     <input ng-model="file_upload" name="file" type="file" id="file" (change)="fileChange($event)" #fileInput>
       <select>
         <option
           *ngFor="let b of banks"
@@ -46,13 +37,9 @@
           {{b}}
         </option>
       </select>
-        <div>
-      <input ng-model="file_upload" name="file" type="file" (change)="fileChange($event)" #fileInput>
-      <div>
-        <button class="btn btn-info" type="submit" style="float: left; margin: 5px">Upload</button>
-      </div>
-        </div>
-    </form>
-  </div>
+      <button class="btn btn-info" type="submit" style="margin: 5px; margin-left:30px">Upload</button>
+    </div>
+  </form>
+  <hr class="solid" style="color: darkgrey">
 </div>
 
