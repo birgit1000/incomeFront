@@ -1,4 +1,4 @@
-<mat-dialog-content>
+<mat-dialog-content *ngIf="isLoggedIn">
   <div class="alert success" *ngIf=isSuccess>
     <strong>{{alertMessage}}</strong>
   </div>

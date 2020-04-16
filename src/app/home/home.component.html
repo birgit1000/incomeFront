@@ -1,13 +1,20 @@
-<div class="container">
-<header class="jumbotron">
-  <div *ngIf="!isLoggedIn">
-      Welcome to the income statement report service!
-      You can use this application without creating an account. Your data will be deleted after 1 hour you've uploaded your file.
-      Also you will be missing some features like bank rules to automate your parsing.
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="container-fluid" style="margin-top: 70px;">
+  <h2 style="padding: 10px; margin: 5px">Hello</h2>
+  <header class="jumbotron">
+  <h4 *ngIf="!isLoggedIn">
+    Welcome to the income statement report service!
+    You can use this application without creating an account. Your data will be deleted after 1 hour you've uploaded
+    your file.
+    Also you will be missing some features like bank rules to automate your parsing.
 
-    As a registered used you can create your own bank rules or add them from your transactions. Also you can log in anytime to access your data.
+    As a registered used you can create your own bank rules or add them from your transactions. Also you can log in
+    anytime to access your data.
     You have always right to delete your data.
-      <a href="/profile" routerLink="profile">Hello!</a>
-    </div>
-</header>
+    <a href="/profile" routerLink="profile">Hello!</a>
+  </h4>
+  <h4 *ngIf="isLoggedIn" style="text-align: center">
+    Welcome back!
+  </h4>
+  </header>
 </div>

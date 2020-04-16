@@ -4,6 +4,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {CsvFile} from '../Models/CsvFile';
 import {Bank} from '../Models/Bank';
 import {environment} from '../../environments/environment';
+import {AuthService} from '../_services/auth.service';
+import {TokenStorageService} from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-upload',
@@ -15,11 +17,16 @@ export class UploadComponent implements OnInit {
   form: FormGroup;
   files: CsvFile[];
   banks: Bank[];
+  isLoggedIn = false;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  // tslint:disable-next-line:max-line-length
+  constructor(private http: HttpClient, private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService) {
   }
 
   ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+    }
     this.createForm();
     this.get();
   }

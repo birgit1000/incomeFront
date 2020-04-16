@@ -11,8 +11,6 @@ import {TokenStorageService} from '../_services/token-storage.service';
 })
 export class HomeComponent implements OnInit {
   isLoggedIn = false;
-  isLoginFailed = false;
-  errorMessage: string;
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
 

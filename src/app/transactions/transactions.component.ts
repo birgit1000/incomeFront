@@ -6,6 +6,8 @@ import 'bootstrap/dist/js/bootstrap.bundle';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Rule} from '../Models/Rule';
 import {environment} from '../../environments/environment';
+import {AuthService} from '../_services/auth.service';
+import {TokenStorageService} from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-transactions',
@@ -16,15 +18,19 @@ export class TransactionsComponent implements OnInit {
   transactionList: Transaction[];
   incomeStatementTypeList: IncomeStatementType[];
   formGroup: FormGroup;
+  isLoggedIn = false;
 
-
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) {
+  // tslint:disable-next-line:max-line-length
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService) {
     this.formGroup = this.formBuilder.group({
       arr: this.formBuilder.array([])
     });
   }
 
   ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+    }
     this.get();
   }
 

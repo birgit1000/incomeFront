@@ -7,6 +7,8 @@ import {Rule} from '../Models/Rule';
 import {Observable} from 'rxjs';
 import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 import {environment} from '../../environments/environment';
+import {AuthService} from '../_services/auth.service';
+import {TokenStorageService} from '../_services/token-storage.service';
 
 
 @Component({
@@ -16,10 +18,15 @@ import {environment} from '../../environments/environment';
 })
 export class RulesComponent implements OnInit {
   rules: Rule[];
+  isLoggedIn = false;
 
-  constructor(private dialog: MatDialog, private http: HttpClient) {}
+  // tslint:disable-next-line:max-line-length
+  constructor(private dialog: MatDialog, private http: HttpClient,private authService: AuthService, private tokenStorage: TokenStorageService) {}
 
   ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+    }
     this.get();
   }
 
