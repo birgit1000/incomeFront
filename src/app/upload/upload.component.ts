@@ -1,11 +1,13 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CsvFile} from '../Models/CsvFile';
 import {Bank} from '../Models/Bank';
 import {environment} from '../../environments/environment';
 import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
+import {MatDatepicker} from '@angular/material/datepicker';
+import {Rule} from '../Models/Rule';
 
 @Component({
   selector: 'app-upload',
@@ -18,6 +20,7 @@ export class UploadComponent implements OnInit {
   files: CsvFile[];
   banks: Bank[];
   isLoggedIn = false;
+  header = new HttpHeaders().set('Authorization', this.tokenStorage.getToken());
 
   // tslint:disable-next-line:max-line-length
   constructor(private http: HttpClient, private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService) {
@@ -26,9 +29,9 @@ export class UploadComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
+      this.createForm();
+      this.get();
     }
-    this.createForm();
-    this.get();
   }
 
   createForm() {
@@ -53,10 +56,9 @@ export class UploadComponent implements OnInit {
 
 
   uploadToServer(body: FormData) {
-    console.log(this.file);
+    console.log(this.header);
     this.http.post( environment.apiUrl + 'upload/save',
-      body
-    )
+      body, {headers: this.header})
       .subscribe(
         (val) => {
           console.log('POST call successful value returned in body',
@@ -71,7 +73,7 @@ export class UploadComponent implements OnInit {
   }
 
   get(): void {
-    this.http.get<CsvFile[]>(environment.apiUrl + 'upload/all').subscribe(result => {
+    this.http.get<CsvFile[]>(environment.apiUrl + 'upload/all', {headers: this.header}).subscribe(result => {
       this.files = result;
     }, error => console.log(error));
 

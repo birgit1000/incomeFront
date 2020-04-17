@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IncomeStatementType} from '../Models/IncomeStatementType';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Rule} from '../Models/Rule';
 import {environment} from '../../environments/environment';
@@ -50,7 +50,7 @@ export class RuleDialogComponent implements OnInit {
   submit() {
     this.formGroup.patchValue({
       user: this.tokenStorage.getUserObject()
-  });
+  }, );
     this.http.post(environment.apiUrl + 'rule/insert',
       this.formGroup.value
     )

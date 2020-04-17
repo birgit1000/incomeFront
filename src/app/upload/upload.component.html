@@ -1,4 +1,4 @@
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <div class="container-fluid" style="margin-top: 70px;" *ngIf="isLoggedIn">
   <h3 style="padding: 10px; margin: 5px">Your uploaded files </h3>
   <div class="col-sm-7">
@@ -27,18 +27,15 @@
   </div>
   <hr class="solid" style="color: darkgrey">
   <form (ngSubmit)="upload()" [formGroup]="form">
-    <div class="form-group">
-      <h6 style="margin-bottom: 30px">Upload your CSV or XML file type bank statement file and choose correct bank</h6>
-     <input ng-model="file_upload" name="file" type="file" id="file" (change)="fileChange($event)" #fileInput>
-      <select>
-        <option
-          *ngFor="let b of banks"
-          [ngValue]="this.b">
-          {{b}}
-        </option>
-      </select>
-      <button class="btn btn-info" type="submit" style="margin: 5px; margin-left:30px">Upload</button>
-    </div>
+    <input ng-model="file_upload" name="file" type="file" id="file" (change)="fileChange($event)" #fileInput>
+    <select>
+      <option
+        *ngFor="let b of banks"
+        [ngValue]="this.b">
+        {{b}}
+      </option>
+    </select>
+    <button class="btn btn-info" type="submit" style="margin: 5px; margin-left:30px">Upload</button>
   </form>
   <hr class="solid" style="color: darkgrey">
 </div>

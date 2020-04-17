@@ -21,7 +21,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {environment} from '../environments/environment';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatNativeDateModule} from '@angular/material/core';
 
 const routes: Routes = [];
 
@@ -41,17 +44,21 @@ const routes: Routes = [];
     LoginComponent
   ],
   entryComponents: [RuleDialogComponent],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        RouterModule.forRoot(routes),
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-      CommonModule,
-      MatDialogModule,
-      BrowserAnimationsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule
+  ],
   providers: [{ provide: 'BASE_API_URL', useValue: environment.apiUrl }],
   bootstrap: [AppComponent]
 })
