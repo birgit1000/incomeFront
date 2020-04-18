@@ -6,8 +6,7 @@ import {Bank} from '../Models/Bank';
 import {environment} from '../../environments/environment';
 import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
-import {MatDatepicker} from '@angular/material/datepicker';
-import {Rule} from '../Models/Rule';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-upload',
@@ -23,7 +22,7 @@ export class UploadComponent implements OnInit {
   header = new HttpHeaders().set('Authorization', this.tokenStorage.getToken());
 
   // tslint:disable-next-line:max-line-length
-  constructor(private http: HttpClient, private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -63,6 +62,7 @@ export class UploadComponent implements OnInit {
         (val) => {
           console.log('POST call successful value returned in body',
             val);
+          this.router.navigate(['/transactions']);
         },
         response => {
           console.log('POST call in error', response);

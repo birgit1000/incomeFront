@@ -19,6 +19,7 @@ export class TransactionsComponent implements OnInit {
   incomeStatementTypeList: IncomeStatementType[];
   formGroup: FormGroup;
   isLoggedIn = false;
+  header = new HttpHeaders().set('Authorization', this.tokenStorage.getToken());
 
   // tslint:disable-next-line:max-line-length
   constructor(private http: HttpClient, private formBuilder: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService) {
@@ -30,35 +31,14 @@ export class TransactionsComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
+      this.get();
     }
-    this.get();
   }
-
-  submit() {
-    this.http.post(environment.apiUrl + 'transactions/update',
-      this.transactionList
-    )
-      .subscribe(
-        (val) => {
-          console.log('POST call successful value returned in body',
-            val);
-        },
-        response => {
-          console.log('POST call in error', response);
-        },
-        () => {
-          console.log('The POST observable is now completed. ');
-        });
-
-
-    console.log(this.transactionList);
-  }
-
 
   changeIncomeStatementType(t, event: any) {
     const selected = event.target.options[event.target.selectedIndex].text;
     console.log(t, selected);
-    this.http.post(environment.apiUrl + '/transactions/update/' + t.id
+    this.http.post(environment.apiUrl + 'transactions/update/' + t.id
       , selected.split(' ')[1])
       .subscribe(
         (val) => {
@@ -92,7 +72,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   get(): void {
-    this.http.get<Transaction[]>(environment.apiUrl + 'transactions/all').subscribe(result => {
+    this.http.get<Transaction[]>(environment.apiUrl + 'transactions/all', {headers: this.header}).subscribe(result => {
       this.transactionList = result;
     }, error => console.log(error));
     this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatement/all').subscribe(result => {

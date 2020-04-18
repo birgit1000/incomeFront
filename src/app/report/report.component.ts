@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Report} from '../Models/Report';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ReportRow} from '../Models/ReportRow';
 import {environment} from '../../environments/environment';
 import {AuthService} from '../_services/auth.service';
@@ -18,6 +18,7 @@ export class ReportComponent implements OnInit {
   isLoggedIn = false;
   form: FormGroup;
   rows: ReportRow[];
+  header = new HttpHeaders().set('Authorization', this.tokenStorage.getToken());
 
   // tslint:disable-next-line:max-line-length
   constructor(private http: HttpClient, private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService) {
@@ -30,7 +31,7 @@ export class ReportComponent implements OnInit {
     this.createForm();
   }
 
-  createForm() {
+    createForm() {
     this.form = this.fb.group({
       startDate: null,
       endDate: null
@@ -42,16 +43,14 @@ export class ReportComponent implements OnInit {
   }
 
   upload() {
-    this.form.patchValue({
-      user: this.tokenStorage.getUserObject()
-    }, );
     this.http.post(environment.apiUrl + 'report/get',
-      this.form.value
+      this.form.value, {headers: this.header}
     )
       .subscribe(
-        (val) => {
+        (val: Report) => {
           console.log('POST call successful value returned in body',
             val);
+          this.rows = val.rows;
         },
         response => {
           console.log('POST call in error', response);
@@ -61,10 +60,10 @@ export class ReportComponent implements OnInit {
         });
   }
 
-  get() {
-    this.http.get<Report>(environment.apiUrl + 'report/new' + this.form).subscribe(result => {
+  get(id) {
+    this.http.get<Report>(environment.apiUrl + 'report/get/' + id).subscribe(result => {
       this.report = result;
-      this.report.rows = this.rows;
+      this.rows = result.rows;
     }, error => console.log(error));
   }
 }
