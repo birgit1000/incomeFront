@@ -1,4 +1,10 @@
 <mat-dialog-content *ngIf="isLoggedIn">
+  <div class="alert success" *ngIf=isSuccess>
+    <strong>{{alertMessage}}</strong>
+  </div>
+  <div class="alert warning" *ngIf=isError>
+    <strong>{{alertMessage}}</strong>
+  </div>
   <form [formGroup]="formGroup" (ngSubmit)="submit()" class="form">
     <h1 style="padding-bottom: 10px">Add new rule</h1>
     <ul>
@@ -53,10 +59,4 @@
   </form>
   <button class="btn btn-success" (click)="submit()" style="float: right">Add</button>
   <button class="btn btn-danger" (click)="close()">Close</button>
-  <div class="alert success" *ngIf=isSuccess>
-    <strong>{{alertMessage}}</strong>
-  </div>
-  <div class="alert warning" *ngIf=isError>
-    <strong>{{alertMessage}}</strong>
-  </div>
 </mat-dialog-content>

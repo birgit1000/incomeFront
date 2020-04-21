@@ -9,7 +9,6 @@
           <thead>
           <tr>
             <th></th>
-            <th>Account Number</th>
             <th>Date</th>
             <th>Amount</th>
             <th>Beneficiary Or Payer Name</th>
@@ -24,7 +23,6 @@
           <tbody>
           <tr *ngFor="let t of transactionList; let i = index">
             <td>{{i + 1}}</td>
-            <td>{{t.accountNumber}}</td>
             <td>{{t.date}}</td>
             <td>{{t.amount}}</td>
             <td>{{t.beneficiaryOrPayerName}}</td>

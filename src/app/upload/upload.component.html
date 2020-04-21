@@ -1,7 +1,7 @@
 <div class="container-fluid" style="margin-top: 70px;">
   <h3 style="padding: 10px; margin: 5px"*ngIf="isLoggedIn">Your uploaded files </h3>
-  <div class="col-sm-7" *ngIf="isLoggedIn">
-    <table class="table table-striped">
+  <div class="col-sm-7" *ngIf="isLoggedIn && files" >
+    <table class="table table-striped" *ngFor="let f of files; let i = index">
       <thead>
       <tr>
         <th></th>
@@ -12,19 +12,20 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let f of files; let i = index">
+      <tr>
         <td>{{i + 1}}</td>
         <td>{{f.name}}</td>
         <td>{{f.uploadDate}}</td>
-        <td>{{f.transactions.entries()}}</td>
+        <td>{{f.transactions.values()}}</td>
         <td>
-          <button class="btn btn-danger" (click)="remove(f.id)">Remove</button>
+          <button class="btn btn-danger" (click)="remove(f.id)">Delete file and transactions</button>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
-  <hr class="solid" style="color: darkgrey">
+  <hr class="solid">
+  <p>Please make sure that transaction date in CSV file is in format dd-MM-yyyy</p>
   <form (ngSubmit)="upload()" [formGroup]="form">
     <input ng-model="file_upload" name="file" type="file" id="file" (change)="fileChange($event)" #fileInput>
     <select>

@@ -27,9 +27,10 @@ export class ReportComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
+    } else {
+      this.getReportForAnon();
     }
     this.createForm();
-    this.rows = JSON.parse(sessionStorage.getItem('sessionRows'))
   }
 
   createForm() {
@@ -45,40 +46,21 @@ export class ReportComponent implements OnInit {
   }
 
   upload() {
-    if (this.isLoggedIn) {
-      this.http.post(environment.apiUrl + 'report/get',
-        this.form.value, {headers: this.header}
-      )
-        .subscribe(
-          (val: Report) => {
-            console.log('POST call successful value returned in body',
-              val);
-            this.rows = val.rows;
-          },
-          response => {
-            console.log('POST call in error', response);
-          },
-          () => {
-            console.log('The POST observable is now completed. ');
-          });
-    } else {
-      this.http.post(environment.apiUrl + 'report/generate/anon',
-        JSON.parse(sessionStorage.getItem('sessionTransactions'))
-      )
-        .subscribe(
-          (val: Report) => {
-            console.log('POST call successful value returned in body',
-              val);
-            this.rows = val.rows;
-            sessionStorage.setItem('sessionRows', JSON.stringify(this.rows));
-          },
-          response => {
-            console.log('POST call in error', response);
-          },
-          () => {
-            console.log('The POST observable is now completed. ');
-          });
-    }
+    this.http.post(environment.apiUrl + 'report/get',
+      this.form.value, {headers: this.header}
+    )
+      .subscribe(
+        (val: Report) => {
+          console.log('POST call successful value returned in body',
+            val);
+          this.rows = val.rows;
+        },
+        response => {
+          console.log('POST call in error', response);
+        },
+        () => {
+          console.log('The POST observable is now completed. ');
+        });
   }
 
   get(id) {
@@ -86,5 +68,24 @@ export class ReportComponent implements OnInit {
       this.report = result;
       this.rows = result.rows;
     }, error => console.log(error));
+  }
+
+  getReportForAnon() {
+    this.http.post(environment.apiUrl + 'report/generate/anon',
+      JSON.parse(sessionStorage.getItem('sessionTransactions'))
+    )
+      .subscribe(
+        (val: Report) => {
+          console.log('POST call successful value returned in body',
+            val);
+          this.rows = val.rows;
+          sessionStorage.setItem('sessionRows', JSON.stringify(this.rows));
+        },
+        response => {
+          console.log('POST call in error', response);
+        },
+        () => {
+          console.log('The POST observable is now completed. ');
+        });
   }
 }

@@ -72,6 +72,8 @@ export class RuleDialogComponent implements OnInit {
             val);
           this.isSuccess = true;
           this.alertMessage = 'Rule inserted successfully!';
+          this.dialogRef.close();
+          window.location.reload();
         },
         response => {
           console.log('POST call in error', response);
@@ -81,7 +83,6 @@ export class RuleDialogComponent implements OnInit {
         () => {
           console.log('The POST observable is now completed. ');
         });
-    console.log(this.formGroup.value);
   }
 
   close(): void {
