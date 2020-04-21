@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IncomeStatementType} from '../Models/IncomeStatementType';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';

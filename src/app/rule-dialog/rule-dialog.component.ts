@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IncomeStatementType} from '../Models/IncomeStatementType';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Rule} from '../Models/Rule';
 import {environment} from '../../environments/environment';
 import {AuthService} from '../_services/auth.service';
@@ -20,40 +20,52 @@ export class RuleDialogComponent implements OnInit {
   isSuccess: boolean;
   isError: boolean;
   isLoggedIn = false;
+  details: string;
+  transactionBeneficiaryOrPayerAccount: string;
+  transactionBeneficiaryOrPayerName: string;
+  header = new HttpHeaders().set('Authorization', this.tokenStorage.getToken());
+  type: string;
+  types: string[] = ['Contains', 'Begins', 'Ends'];
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialogRef: MatDialogRef<RuleDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public rule: Rule, private authService: AuthService, private tokenStorage: TokenStorageService) {
-     this.createForm();
+              @Inject(MAT_DIALOG_DATA) public rule: Rule, private authService: AuthService, private tokenStorage: TokenStorageService,
+              @Inject(MAT_DIALOG_DATA) data) {
+    if (data) {
+      this.details = data.details;
+      this.transactionBeneficiaryOrPayerAccount = data.transactionBeneficiaryOrPayerAccount;
+      this.transactionBeneficiaryOrPayerName = data.transactionBeneficiaryOrPayerName;
+    }
   }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
+      this.createForm();
+      this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatement/all')
+        .subscribe(result => {
+          this.incomeStatementTypeList = result;
+        }, error => console.log(error));
     }
-    this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatement/all')
-      .subscribe(result => {
-      this.incomeStatementTypeList = result;
-    }, error => console.log(error));
   }
 
   createForm() {
     this.formGroup = this.formBuilder.group({
       name: [null],
-      transactionBeneficiaryOrPayerAccount: [null],
-      transactionBeneficiaryOrPayerName: [null],
-      transactionDetails: [null, Validators.required],
+      transactionBeneficiaryOrPayerAccount: [this.transactionBeneficiaryOrPayerAccount],
+      transactionBeneficiaryOrPayerName: [this.transactionBeneficiaryOrPayerName],
+      transactionDetails: [this.details, Validators.required],
       incomeStatementType: [null, Validators.required],
-      user: [null]
+      user: [null],
+      type: null
     });
   }
 
   submit() {
     this.formGroup.patchValue({
       user: this.tokenStorage.getUserObject()
-  }, );
+    });
     this.http.post(environment.apiUrl + 'rule/insert',
-      this.formGroup.value
-    )
+      this.formGroup.value, {headers: this.header})
       .subscribe(
         (val) => {
           console.log('POST call successful value returned in body',
@@ -74,7 +86,7 @@ export class RuleDialogComponent implements OnInit {
 
   close(): void {
     this.dialogRef.close();
-    window.location.reload();
+    // window.location.reload();
   }
 
 }

@@ -1,22 +1,22 @@
 
-<div class="container-fluid" style="margin-top: 150px;" *ngIf="isLoggedIn">
+<div class="container-fluid" style="margin-top: 100px;">
   <h2 style="padding-bottom: 10px">Your income statement report</h2>
    <div>
   <form  [formGroup]="form" (ngSubmit)="upload()">
+    <button class="btn btn-info" type="submit" style="margin: 5px; margin-left:30px; float: inherit" >Get report</button>
     <div>
-    <mat-form-field style="margin-right: 10px">
+    <mat-form-field style="margin-right: 10px" *ngIf="isLoggedIn">
       <mat-label>Start date</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="startDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="isLoggedIn">
       <mat-label>End date</mat-label>
       <input matInput [matDatepicker]="picker2" formControlName="endDate">
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
-      <button class="btn btn-info" type="submit" style="margin: 5px; margin-left:30px">Get report</button>
     </div>
   </form>
    </div>

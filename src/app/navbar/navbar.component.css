@@ -1,13 +1,19 @@
-.nav-item{
-  padding:2px;
+.nav-item {
+  padding: 2px;
   margin-left: 7px;
 }
 
-.logo-image{
+.logo-image {
   width: 46px;
   height: 46px;
   overflow: hidden;
 }
-.nav-item{
+
+.nav-item {
   color: darkgrey;
+}
+
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
 }

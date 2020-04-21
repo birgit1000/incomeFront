@@ -1,7 +1,6 @@
-
-<div class="container-fluid" style="margin-top: 70px;" *ngIf="isLoggedIn">
-  <h3 style="padding: 10px; margin: 5px">Your uploaded files </h3>
-  <div class="col-sm-7">
+<div class="container-fluid" style="margin-top: 70px;">
+  <h3 style="padding: 10px; margin: 5px"*ngIf="isLoggedIn">Your uploaded files </h3>
+  <div class="col-sm-7" *ngIf="isLoggedIn">
     <table class="table table-striped">
       <thead>
       <tr>
@@ -37,6 +36,5 @@
     </select>
     <button class="btn btn-info" type="submit" style="margin: 5px; margin-left:30px">Upload</button>
   </form>
-  <hr class="solid" style="color: darkgrey">
 </div>
 

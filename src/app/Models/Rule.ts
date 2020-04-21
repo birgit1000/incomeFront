@@ -9,4 +9,5 @@ export class Rule {
   transactionDetails: string;
   incomeStatementType: IncomeStatementType;
   user: User;
+  type: string;
 }

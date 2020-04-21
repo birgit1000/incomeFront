@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { IncomeStatementTypesComponent } from './income-statement-types.component';
+import {IncomeStatementTypesComponent} from './income-statement-types.component';
 
 describe('IncomeStatementTypesComponent', () => {
   let component: IncomeStatementTypesComponent;

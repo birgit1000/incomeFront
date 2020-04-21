@@ -29,12 +29,14 @@ export class ReportComponent implements OnInit {
       this.isLoggedIn = true;
     }
     this.createForm();
+    this.rows = JSON.parse(sessionStorage.getItem('sessionRows'))
   }
 
-    createForm() {
+  createForm() {
     this.form = this.fb.group({
       startDate: null,
-      endDate: null
+      endDate: null,
+      rows: null
     });
   }
 
@@ -43,21 +45,40 @@ export class ReportComponent implements OnInit {
   }
 
   upload() {
-    this.http.post(environment.apiUrl + 'report/get',
-      this.form.value, {headers: this.header}
-    )
-      .subscribe(
-        (val: Report) => {
-          console.log('POST call successful value returned in body',
-            val);
-          this.rows = val.rows;
-        },
-        response => {
-          console.log('POST call in error', response);
-        },
-        () => {
-          console.log('The POST observable is now completed. ');
-        });
+    if (this.isLoggedIn) {
+      this.http.post(environment.apiUrl + 'report/get',
+        this.form.value, {headers: this.header}
+      )
+        .subscribe(
+          (val: Report) => {
+            console.log('POST call successful value returned in body',
+              val);
+            this.rows = val.rows;
+          },
+          response => {
+            console.log('POST call in error', response);
+          },
+          () => {
+            console.log('The POST observable is now completed. ');
+          });
+    } else {
+      this.http.post(environment.apiUrl + 'report/generate/anon',
+        JSON.parse(sessionStorage.getItem('sessionTransactions'))
+      )
+        .subscribe(
+          (val: Report) => {
+            console.log('POST call successful value returned in body',
+              val);
+            this.rows = val.rows;
+            sessionStorage.setItem('sessionRows', JSON.stringify(this.rows));
+          },
+          response => {
+            console.log('POST call in error', response);
+          },
+          () => {
+            console.log('The POST observable is now completed. ');
+          });
+    }
   }
 
   get(id) {

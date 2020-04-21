@@ -4,22 +4,15 @@
       <img src="https://cdn0.iconfinder.com/data/icons/accounting-2-2/66/138-512.png" class="img-fluid">
     </div>
   </a>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-          aria-controls="navbarCollapse"
-          aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" routerLink="/home">Home</a>
       </li>
-      <li class="nav-item border-left" *ngIf="isLoggedIn">
+      <li class="nav-item border-left">
         <a class="nav-link" routerLink="/upload">Upload file</a>
       </li>
-      <li class="nav-item border-left" *ngIf="isLoggedIn">
+      <li class="nav-item border-left">
         <a class="nav-link" routerLink="/transactions">Transactions</a>
       </li>
       <li class="nav-item border-left" *ngIf="isLoggedIn">
@@ -28,23 +21,19 @@
       <li class="nav-item border-left" *ngIf="isLoggedIn">
         <a class="nav-link" routerLink="/rules">Rules</a>
       </li>
-      <li class="nav-item border-left" *ngIf="isLoggedIn">
+      <li class="nav-item border-left">
         <a class="nav-link" routerLink="/report">Income statement report</a>
       </li>
-      <ul class="navbar-nav border-left" *ngIf="!isLoggedIn">
-        <li class="nav-item">
-          <a href="/register" class="nav-link" routerLink="register">Register</a>
-        </li>
-        <li class="nav-item">
-          <a href="/login" class="nav-link" routerLink="login">Login</a>
-        </li>
-      </ul>
     </ul>
-    <ul class="navbar-item border-left" style="float: right" *ngIf="isLoggedIn">
-      <li class="nav-item">
+    <ul class="nav navbar-nav border-left navbar-right" *ngIf="!isLoggedIn" >
+      <li><a href="/register" class="nav-link" ><span class="glyphicon glyphicon-user"></span> Register</a></li>
+      <li><a href="/login" class="nav-link" ><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right" style="float: right" *ngIf="isLoggedIn">
+      <li>
         <a href="/profile" class="nav-link" routerLink="profile">Hello, {{ username }}!</a>
       </li>
-      <li class="nav-item">
+      <li>
         <a href class="nav-link" (click)="logout()">Log out</a>
       </li>
     </ul>

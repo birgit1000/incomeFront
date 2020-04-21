@@ -14,3 +14,13 @@
 .alert.warning {
   background-color: darkred;
 }
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.example-radio-button {
+  margin: 5px;
+}

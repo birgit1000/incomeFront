@@ -1,31 +1,45 @@
 <mat-dialog-content *ngIf="isLoggedIn">
-  <div class="alert success" *ngIf=isSuccess>
-    <strong>{{alertMessage}}</strong>
-  </div>
-  <div class="alert warning" *ngIf=isError>
-    <strong>{{alertMessage}}</strong>
-  </div>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <form [formGroup]="formGroup" (ngSubmit)="submit()" class="form">
     <h1 style="padding-bottom: 10px">Add new rule</h1>
+    <ul>
+      <li>
+        Rules help you to automatize bank statement imports by automatically assigning income statement type by the rule.
+      </li>
+      <li>
+        Define account name, number or details of the transaction and choose type whether transactions should begin, end or contain with your defined value
+      </li>
+      <li>
+        Finally define income statement type of the transaction
+      </li>
+    </ul>
     <hr>
     <div class="form-group input-group-lg">
-      <label>Rule name: </label>
+      <label for="name">Rule name: </label>
       <input class="form-control" placeholder="If no name provided then rule is named as Default"
-             formControlName="name" ng-required="required">
+             formControlName="name" ng-required="required" id="name">
     </div>
     <div class="form-group input-group-lg">
-      <label>Rule 1: Beneficiary Or Payer Account of Transaction: </label>
-      <input class="form-control" placeholder="" formControlName="transactionBeneficiaryOrPayerAccount">
+      <label for="transactionBeneficiaryOrPayerAccount">Define Beneficiary Or Payer Account of Transaction: </label>
+      <input class="form-control" placeholder="e.g EE471000001020145685"
+             formControlName="transactionBeneficiaryOrPayerAccount"
+             id="transactionBeneficiaryOrPayerAccount">
     </div>
     <div class="form-group input-group-lg">
-      <label>Rule 2: Beneficiary Or Payer Name of Transaction: </label>
-      <input class="form-control" placeholder="" formControlName="transactionBeneficiaryOrPayerName">
+      <label for="transactionBeneficiaryOrPayerName">Define Beneficiary Or Payer Name of Transaction: </label>
+      <input class="form-control" placeholder="e.g. Mari Maasikas" formControlName="transactionBeneficiaryOrPayerName"
+             id="transactionBeneficiaryOrPayerName">
     </div>
     <div class="form-group input-group-lg">
-      <label>Rule 3: Details of Transaction:</label>
-      <input class="form-control" placeholder="" formControlName="transactionDetails" id="transactionDetails" required>
+      <label for="transactionDetails">Define Details of Transaction:</label>
+      <input class="form-control" placeholder="e.g. Salary" formControlName="transactionDetails"
+             id="transactionDetails" required>
     </div>
+    <label id="example-radio-group-label">Rule type: </label>
+    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="type">
+      <mat-radio-button class="example-radio-button" *ngFor="let t of types" [value]="t">
+        {{t}}
+      </mat-radio-button>
+    </mat-radio-group>
     <label>Income Statement Type of Transaction:</label>
     <div class="form-group dropdown-menu-left-lg" required>
       <select formControlName="incomeStatementType">
@@ -37,6 +51,12 @@
       </select>
     </div>
   </form>
-    <button class="btn btn-success" (click)="submit()" style="float: right">Add</button>
-    <button class="btn btn-danger" (click)="close()">Close</button>
+  <button class="btn btn-success" (click)="submit()" style="float: right">Add</button>
+  <button class="btn btn-danger" (click)="close()">Close</button>
+  <div class="alert success" *ngIf=isSuccess>
+    <strong>{{alertMessage}}</strong>
+  </div>
+  <div class="alert warning" *ngIf=isError>
+    <strong>{{alertMessage}}</strong>
+  </div>
 </mat-dialog-content>

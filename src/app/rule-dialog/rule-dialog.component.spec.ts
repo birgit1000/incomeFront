@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RuleDialogComponent } from './rule-dialog.component';
+import {RuleDialogComponent} from './rule-dialog.component';
 
 describe('RuleDialogComponent', () => {
   let component: RuleDialogComponent;

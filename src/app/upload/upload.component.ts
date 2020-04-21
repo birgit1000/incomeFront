@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CsvFile} from '../Models/CsvFile';
@@ -7,6 +7,7 @@ import {environment} from '../../environments/environment';
 import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {Router} from '@angular/router';
+import {Transaction} from '../Models/Transaction';
 
 @Component({
   selector: 'app-upload',
@@ -20,17 +21,21 @@ export class UploadComponent implements OnInit {
   banks: Bank[];
   isLoggedIn = false;
   header = new HttpHeaders().set('Authorization', this.tokenStorage.getToken());
+  sessionTransactions: Transaction[];
 
   // tslint:disable-next-line:max-line-length
   constructor(private http: HttpClient, private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.createForm();
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.createForm();
       this.get();
     }
+    this.http.get<Bank[]>(environment.apiUrl + 'bank/all').subscribe(result => {
+      this.banks = result;
+    }, error => console.log(error));
   }
 
   createForm() {
@@ -55,7 +60,30 @@ export class UploadComponent implements OnInit {
 
 
   uploadToServer(body: FormData) {
-    console.log(this.header);
+    if (this.isLoggedIn) { this.uploadWithUser(body); } else { this.uploadWithoutUser(body); }
+  }
+
+  get(): void {
+    this.http.get<CsvFile[]>(environment.apiUrl + 'upload/all', {headers: this.header}).subscribe(result => {
+      this.files = result;
+    }, error => console.log(error));
+  }
+
+  remove(id: any): void {
+    this.http.delete<CsvFile>(environment.apiUrl + 'upload/delete/' + id).subscribe(
+      (val) => {
+        console.log('DELETE call successful');
+        this.get();
+      },
+      response => {
+        console.log('DELETE call in error', response);
+      },
+      () => {
+        console.log('The DELETE observable is now completed. ');
+      });
+  }
+
+  uploadWithUser(body: FormData) {
     this.http.post( environment.apiUrl + 'upload/save',
       body, {headers: this.header})
       .subscribe(
@@ -72,27 +100,22 @@ export class UploadComponent implements OnInit {
         });
   }
 
-  get(): void {
-    this.http.get<CsvFile[]>(environment.apiUrl + 'upload/all', {headers: this.header}).subscribe(result => {
-      this.files = result;
-    }, error => console.log(error));
-
-    this.http.get<Bank[]>(environment.apiUrl + 'bank/all').subscribe(result => {
-      this.banks = result;
-    }, error => console.log(error));
-  }
-
-  remove(id: any): void {
-    this.http.delete<CsvFile>(environment.apiUrl + 'upload/delete/' + id).subscribe(
-      (val) => {
-        console.log('DELETE call successful');
-        this.get();
-      },
-      response => {
-        console.log('DELETE call in error', response);
-      },
-      () => {
-        console.log('The DELETE observable is now completed. ');
-      });
+  private uploadWithoutUser(body: FormData) {
+    this.http.post( environment.apiUrl + 'upload/anon/save',
+      body)
+      .subscribe(
+        (val: Transaction[]) => {
+          console.log('POST call successful value returned in body',
+            val);
+          this.sessionTransactions = val;
+          sessionStorage.setItem('sessionTransactions', JSON.stringify(val));
+          this.router.navigate(['/transactions']);
+        },
+        response => {
+          console.log('POST call in error', response);
+        },
+        () => {
+          console.log('The POST observable is now completed. ');
+        });
   }
 }
