@@ -42,7 +42,7 @@ export class TransactionsComponent implements OnInit {
   changeIncomeStatementType(t, event: any) {
     const selected = event.target.options[event.target.selectedIndex].text;
     if (this.isLoggedIn) {
-      this.http.post(environment.apiUrl + 'transactions/update/' + t.id
+      this.http.post(environment.apiUrl + 'transactions/' + t.id
         , selected.split(' ')[1])
         .subscribe(
           (val) => {
@@ -67,7 +67,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   remove(id: any): void {
-    this.http.delete<Transaction>(environment.apiUrl + 'transactions/delete/' + id).subscribe(
+    this.http.delete<Transaction>(environment.apiUrl + 'transactions/' + id).subscribe(
       (val) => {
         console.log('DELETE call successful');
         this.getTransactionsByUser();
@@ -103,7 +103,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   private getIncomeStatementTypes() {
-    this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatement/all').subscribe(result => {
+    this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatements').subscribe(result => {
       this.incomeStatementTypeList = result;
     }, error => console.log(error));
   }

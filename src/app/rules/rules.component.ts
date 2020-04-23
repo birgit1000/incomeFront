@@ -32,7 +32,7 @@ export class RulesComponent implements OnInit {
   }
 
   remove(id: any): void {
-    this.http.delete<Rule>(environment.apiUrl + 'rule/delete/' + id).subscribe(
+    this.http.delete<Rule>(environment.apiUrl + 'rule/' + id).subscribe(
       (val) => {
         console.log('DELETE call successful');
         this.get();

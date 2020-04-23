@@ -6,6 +6,7 @@ import {environment} from '../../environments/environment';
 import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {CsvFile} from '../Models/CsvFile';
 
 @Component({
   selector: 'app-report',
@@ -19,6 +20,7 @@ export class ReportComponent implements OnInit {
   form: FormGroup;
   rows: ReportRow[];
   header = new HttpHeaders().set('Authorization', this.tokenStorage.getToken());
+  allReports: Report[];
 
   // tslint:disable-next-line:max-line-length
   constructor(private http: HttpClient, private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService) {
@@ -27,6 +29,7 @@ export class ReportComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
+      this.getAll();
     } else {
       this.getReportForAnon();
     }
@@ -45,8 +48,8 @@ export class ReportComponent implements OnInit {
     this.selectedRow = row;
   }
 
-  upload() {
-    this.http.post(environment.apiUrl + 'report/get',
+  generateReportForUser() {
+    this.http.post(environment.apiUrl + 'report/generate',
       this.form.value, {headers: this.header}
     )
       .subscribe(
@@ -61,13 +64,6 @@ export class ReportComponent implements OnInit {
         () => {
           console.log('The POST observable is now completed. ');
         });
-  }
-
-  get(id) {
-    this.http.get<Report>(environment.apiUrl + 'report/get/' + id).subscribe(result => {
-      this.report = result;
-      this.rows = result.rows;
-    }, error => console.log(error));
   }
 
   getReportForAnon() {
@@ -87,5 +83,11 @@ export class ReportComponent implements OnInit {
         () => {
           console.log('The POST observable is now completed. ');
         });
+  }
+
+  getAll(): void {
+    this.http.get<Report[]>(environment.apiUrl + 'report/all', {headers: this.header}).subscribe(result => {
+      this.allReports = result;
+    }, error => console.log(error));
   }
 }

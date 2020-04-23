@@ -41,7 +41,7 @@ export class RuleDialogComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.createForm();
-      this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatement/all')
+      this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatements')
         .subscribe(result => {
           this.incomeStatementTypeList = result;
         }, error => console.log(error));
@@ -64,7 +64,7 @@ export class RuleDialogComponent implements OnInit {
     this.formGroup.patchValue({
       user: this.tokenStorage.getUserObject()
     });
-    this.http.post(environment.apiUrl + 'rule/insert',
+    this.http.post(environment.apiUrl + 'rule',
       this.formGroup.value, {headers: this.header})
       .subscribe(
         (val) => {

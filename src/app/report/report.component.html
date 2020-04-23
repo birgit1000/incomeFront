@@ -1,9 +1,35 @@
-
 <div class="container-fluid" style="margin-top: 100px;">
-  <h2 style="padding-bottom: 10px">Your income statement report</h2>
+  <h2 style="padding-bottom: 10px" *ngIf="isLoggedIn">Your income statement reports</h2>
+  <div class="col-sm-7" *ngIf="isLoggedIn && allReports" >
+    <table class="table table-striped" *ngFor="let f of allReports; let i = index">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Date made</th>
+        <th>Start date</th>
+        <th>End date</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{i + 1}}</td>
+        <td>{{f.dateMade}}</td>
+        <td>{{f.startDate}}</td>
+        <td>{{f.endDate}}</td>
+        <div *ngFor="let r of f.rows">
+          <li> Type: {{r.incomeStatementType}}, Sum: {{r.sum}}
+        </div>
+<!--        <td>-->
+<!--          <button class="btn btn-danger" (click)="remove(f.id)">Delete file and transactions</button>-->
+<!--        </td>-->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <hr class="solid">
    <div>
-  <form  [formGroup]="form" (ngSubmit)="upload()" *ngIf="isLoggedIn">
-    <button class="btn btn-info" type="submit" style="margin: 5px; margin-left:30px; float: inherit" >Get report</button>
+  <form  [formGroup]="form" (ngSubmit)="generateReportForUser()" *ngIf="isLoggedIn">
     <div>
     <mat-form-field style="margin-right: 10px">
       <mat-label>Start date</mat-label>
@@ -17,6 +43,7 @@
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
+      <button class="btn btn-info" type="submit" style="margin: 5px; margin-left:30px; float: inherit" >Get report</button>
     </div>
   </form>
    </div>
@@ -39,7 +66,7 @@
           <button class="btn-info" (click)="toggle(r)">Show transactions</button>
           <ul *ngIf="selectedRow == r">
             <div *ngFor="let t of r.transactions">
-              <li>Name: {{t.beneficiaryOrPayerName}}, Account: {{t.beneficiaryOrPayerAccount}},
+              <li> Name: {{t.beneficiaryOrPayerName}}, Account: {{t.beneficiaryOrPayerAccount}},
                 Details: {{t.details}}, Date: {{t.date}}, Amount: {{t.amount}}</li>
             </div>
           </ul>

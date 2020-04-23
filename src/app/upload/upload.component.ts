@@ -22,6 +22,8 @@ export class UploadComponent implements OnInit {
   isLoggedIn = false;
   header = new HttpHeaders().set('Authorization', this.tokenStorage.getToken());
   sessionTransactions: Transaction[];
+  isUploadFailed = false;
+  errorMessage: string;
 
   // tslint:disable-next-line:max-line-length
   constructor(private http: HttpClient, private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) {
@@ -33,7 +35,7 @@ export class UploadComponent implements OnInit {
       this.isLoggedIn = true;
       this.get();
     }
-    this.http.get<Bank[]>(environment.apiUrl + 'bank/all').subscribe(result => {
+    this.http.get<Bank[]>(environment.apiUrl + 'banks').subscribe(result => {
       this.banks = result;
     }, error => console.log(error));
   }
@@ -64,13 +66,13 @@ export class UploadComponent implements OnInit {
   }
 
   get(): void {
-    this.http.get<CsvFile[]>(environment.apiUrl + 'upload/all', {headers: this.header}).subscribe(result => {
+    this.http.get<CsvFile[]>(environment.apiUrl + 'upload', {headers: this.header}).subscribe(result => {
       this.files = result;
     }, error => console.log(error));
   }
 
   remove(id: any): void {
-    this.http.delete<CsvFile>(environment.apiUrl + 'upload/delete/' + id).subscribe(
+    this.http.delete<CsvFile>(environment.apiUrl + 'upload/' + id).subscribe(
       (val) => {
         console.log('DELETE call successful');
         this.get();
@@ -84,7 +86,7 @@ export class UploadComponent implements OnInit {
   }
 
   uploadWithUser(body: FormData) {
-    this.http.post( environment.apiUrl + 'upload/save',
+    this.http.post( environment.apiUrl + 'upload',
       body, {headers: this.header})
       .subscribe(
         (val) => {
@@ -94,6 +96,8 @@ export class UploadComponent implements OnInit {
         },
         response => {
           console.log('POST call in error', response);
+          this.isUploadFailed = true;
+          this.errorMessage = response.error.message;
         },
         () => {
           console.log('The POST observable is now completed. ');
@@ -101,7 +105,7 @@ export class UploadComponent implements OnInit {
   }
 
   private uploadWithoutUser(body: FormData) {
-    this.http.post( environment.apiUrl + 'upload/anon/save',
+    this.http.post( environment.apiUrl + 'upload/anon',
       body)
       .subscribe(
         (val: Transaction[]) => {
@@ -113,6 +117,8 @@ export class UploadComponent implements OnInit {
         },
         response => {
           console.log('POST call in error', response);
+          this.isUploadFailed = true;
+          this.errorMessage = response.error.message;
         },
         () => {
           console.log('The POST observable is now completed. ');

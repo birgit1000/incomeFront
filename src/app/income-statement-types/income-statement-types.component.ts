@@ -20,7 +20,7 @@ export class IncomeStatementTypesComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
     }
-    this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatement/all')
+    this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatements')
       .subscribe(result => {
       this.incomeStatementTypeList = result;
     }, error => console.log(error));

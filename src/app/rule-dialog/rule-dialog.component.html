@@ -1,8 +1,8 @@
 <mat-dialog-content *ngIf="isLoggedIn">
-  <div class="alert success" *ngIf=isSuccess>
+  <div class="alert alert-success" role="alert" *ngIf=isSuccess>
     <strong>{{alertMessage}}</strong>
   </div>
-  <div class="alert warning" *ngIf=isError>
+  <div class="alert alert-warning"  role="alert" *ngIf=isError>
     <strong>{{alertMessage}}</strong>
   </div>
   <form [formGroup]="formGroup" (ngSubmit)="submit()" class="form">
