@@ -42,7 +42,7 @@ export class TransactionsComponent implements OnInit {
   changeIncomeStatementType(t, event: any) {
     const selected = event.target.options[event.target.selectedIndex].text;
     if (this.isLoggedIn) {
-      this.http.post(environment.apiUrl + 'transactions/' + t.id
+      this.http.put(environment.apiUrl + 'transactions/' + t.id
         , selected.split(' ')[1])
         .subscribe(
           (val) => {
@@ -82,6 +82,8 @@ export class TransactionsComponent implements OnInit {
 
   getTransactionsByUser(): void {
     this.http.get<Transaction[]>(environment.apiUrl + 'transactions/all', {headers: this.header}).subscribe(result => {
+      console.log('jadad');
+      console.log(result);
       this.transactionList = result;
     }, error => console.log(error));
   }

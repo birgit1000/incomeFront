@@ -6,7 +6,6 @@ import {environment} from '../../environments/environment';
 import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {CsvFile} from '../Models/CsvFile';
 
 @Component({
   selector: 'app-report',
@@ -20,16 +19,16 @@ export class ReportComponent implements OnInit {
   form: FormGroup;
   rows: ReportRow[];
   header = new HttpHeaders().set('Authorization', this.tokenStorage.getToken());
-  allReports: Report[];
 
   // tslint:disable-next-line:max-line-length
-  constructor(private http: HttpClient, private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private authService: AuthService,
+              private tokenStorage: TokenStorageService) {
   }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.getAll();
+      this.rows = [];
     } else {
       this.getReportForAnon();
     }
@@ -45,7 +44,11 @@ export class ReportComponent implements OnInit {
   }
 
   toggle(row: ReportRow) {
-    this.selectedRow = row;
+      if (this.selectedRow === row) {
+          this.selectedRow = null;
+      } else {
+          this.selectedRow = row;
+      }
   }
 
   generateReportForUser() {
@@ -56,6 +59,7 @@ export class ReportComponent implements OnInit {
         (val: Report) => {
           console.log('POST call successful value returned in body',
             val);
+          console.log(this.form.value);
           this.rows = val.rows;
         },
         response => {
@@ -83,11 +87,5 @@ export class ReportComponent implements OnInit {
         () => {
           console.log('The POST observable is now completed. ');
         });
-  }
-
-  getAll(): void {
-    this.http.get<Report[]>(environment.apiUrl + 'report/all', {headers: this.header}).subscribe(result => {
-      this.allReports = result;
-    }, error => console.log(error));
   }
 }

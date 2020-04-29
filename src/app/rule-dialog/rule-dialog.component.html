@@ -6,16 +6,16 @@
     <strong>{{alertMessage}}</strong>
   </div>
   <form [formGroup]="formGroup" (ngSubmit)="submit()" class="form">
-    <h1 style="padding-bottom: 10px">Add new rule</h1>
+    <h3 style="padding-bottom: 10px">Add new rule</h3>
     <ul>
       <li>
         Rules help you to automatize bank statement imports by automatically assigning income statement type by the rule.
       </li>
       <li>
-        Define account name, number or details of the transaction and choose type whether transactions should begin, end or contain with your defined value
+        Define account name, account number or details of the transaction and choose rule type whether transactions should begin, end or contain with your defined value
       </li>
       <li>
-        Finally define income statement type of the transaction
+        Finally define what income statement type should be assigned to the a transaction
       </li>
     </ul>
     <hr>

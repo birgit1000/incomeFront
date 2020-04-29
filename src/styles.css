@@ -1,2 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+table {
+  margin: 0 auto;
+  table-layout: auto;
+  overflow-x:scroll
+}
+
+td, th {
+  font-size: 13px;
+}
+
+.btn, li {
+  font-size: 12px;
+}
+
+select, option, input{
+  font-size: 12px;
+}

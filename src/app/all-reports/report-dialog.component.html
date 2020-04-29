@@ -1,0 +1,30 @@
+<h3 style="padding: 5px" *ngIf="isLoggedIn && allReports.length > 0">Your income statement reports</h3>
+<div class="col-sm-12">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Date made</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let f of allReports; let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{f.dateMade}}</td>
+      <td>{{f.startDate}}</td>
+      <td>{{f.endDate}}</td>
+      <td>
+        <div *ngFor="let r of f.rows">
+          <li> Type: {{r.incomeStatementType}}, Sum: {{r.sum}}
+        </div>
+      </td>
+              <td>
+                <button class="btn btn-danger" (click)="remove(f.id)">Delete report</button>
+              </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

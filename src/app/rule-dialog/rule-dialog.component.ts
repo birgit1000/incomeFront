@@ -55,15 +55,11 @@ export class RuleDialogComponent implements OnInit {
       transactionBeneficiaryOrPayerName: [this.transactionBeneficiaryOrPayerName],
       transactionDetails: [this.details, Validators.required],
       incomeStatementType: [null, Validators.required],
-      user: [null],
-      type: null
+      type: [null, Validators.required]
     });
   }
 
   submit() {
-    this.formGroup.patchValue({
-      user: this.tokenStorage.getUserObject()
-    });
     this.http.post(environment.apiUrl + 'rule',
       this.formGroup.value, {headers: this.header})
       .subscribe(
@@ -72,6 +68,7 @@ export class RuleDialogComponent implements OnInit {
             val);
           this.isSuccess = true;
           this.alertMessage = 'Rule inserted successfully!';
+          console.log(this.formGroup.value);
           this.dialogRef.close();
           window.location.reload();
         },

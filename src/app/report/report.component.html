@@ -1,34 +1,6 @@
-<div class="container-fluid" style="margin-top: 100px;">
-  <h2 style="padding-bottom: 10px" *ngIf="isLoggedIn">Your income statement reports</h2>
-  <div class="col-sm-7" *ngIf="isLoggedIn && allReports" >
-    <table class="table table-striped" *ngFor="let f of allReports; let i = index">
-      <thead>
-      <tr>
-        <th></th>
-        <th>Date made</th>
-        <th>Start date</th>
-        <th>End date</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>{{i + 1}}</td>
-        <td>{{f.dateMade}}</td>
-        <td>{{f.startDate}}</td>
-        <td>{{f.endDate}}</td>
-        <div *ngFor="let r of f.rows">
-          <li> Type: {{r.incomeStatementType}}, Sum: {{r.sum}}
-        </div>
-<!--        <td>-->
-<!--          <button class="btn btn-danger" (click)="remove(f.id)">Delete file and transactions</button>-->
-<!--        </td>-->
-      </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="container-fluid">
   <hr class="solid">
-   <div>
+     <div>
   <form  [formGroup]="form" (ngSubmit)="generateReportForUser()" *ngIf="isLoggedIn">
     <div>
     <mat-form-field style="margin-right: 10px">
@@ -47,7 +19,7 @@
     </div>
   </form>
    </div>
-  <div class="col-sm-11">
+  <div class="col-sm-12" *ngIf="rows.length>0">
     <table class="table table-striped">
       <thead>
       <tr>
@@ -63,7 +35,7 @@
         <td>{{r.incomeStatementType}}</td>
         <td>{{r.sum}}</td>
         <td width="50%">
-          <button class="btn-info" (click)="toggle(r)">Show transactions</button>
+          <button class="btn btn-info" (click)="toggle(r)">Show transactions</button>
           <ul *ngIf="selectedRow == r">
             <div *ngFor="let t of r.transactions">
               <li> Name: {{t.beneficiaryOrPayerName}}, Account: {{t.beneficiaryOrPayerAccount}},

@@ -19,8 +19,19 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
+  text-size: 13px;
 }
 
 .example-radio-button {
   margin: 5px;
+  text-size: 13px;
 }
+
+li, .form-group, label, .form-control, input, mat-radio-group{
+  font-size: 13px;
+}
+
+mat-dialog-content {
+  margin: 0 auto;
+}
+

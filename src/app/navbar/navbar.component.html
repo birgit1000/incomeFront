@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md bg-light dark fixed-top">
+<nav class="navbar navbar-expand-md bg-light dark">
   <a class="navbar-brand" href="/">
     <div class="logo-image">
       <img src="https://cdn0.iconfinder.com/data/icons/accounting-2-2/66/138-512.png" class="img-fluid">
@@ -10,7 +10,11 @@
         <a class="nav-link" routerLink="/home">Home</a>
       </li>
       <li class="nav-item border-left">
-        <a class="nav-link" routerLink="/upload">Upload file</a>
+        <button style="background-color: transparent;border: none;padding-top: 8px;" [matMenuTriggerFor]="menu2">Files</button>
+        <mat-menu #menu2="matMenu">
+          <button style="font-size: 12px" mat-menu-item routerLink="/upload">Upload new</button>
+          <button style="font-size: 12px" mat-menu-item routerLink="/all-files"  *ngIf="isLoggedIn">All files</button>
+        </mat-menu>
       </li>
       <li class="nav-item border-left">
         <a class="nav-link" routerLink="/transactions">Transactions</a>
@@ -19,7 +23,11 @@
         <a class="nav-link" routerLink="/rules">Rules</a>
       </li>
       <li class="nav-item border-left">
-        <a class="nav-link" routerLink="/report">Income statement report</a>
+      <button style="background-color: transparent;border: none;padding-top: 8px;" [matMenuTriggerFor]="menu">Report</button>
+      <mat-menu #menu="matMenu">
+        <button style="font-size: 12px" mat-menu-item routerLink="/report">Generate new</button>
+        <button style="font-size: 12px" mat-menu-item routerLink="/all-reports"  *ngIf="isLoggedIn">All reports</button>
+      </mat-menu>
       </li>
     </ul>
     <ul class="nav navbar-nav border-left navbar-right" *ngIf="!isLoggedIn" >

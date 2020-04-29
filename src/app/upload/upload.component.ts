@@ -8,6 +8,7 @@ import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {Router} from '@angular/router';
 import {Transaction} from '../Models/Transaction';
+import {ReportRow} from '../Models/ReportRow';
 
 @Component({
   selector: 'app-upload',
@@ -25,15 +26,14 @@ export class UploadComponent implements OnInit {
   isUploadFailed = false;
   errorMessage: string;
 
-  // tslint:disable-next-line:max-line-length
-  constructor(private http: HttpClient, private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private authService: AuthService,
+              private tokenStorage: TokenStorageService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.createForm();
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.get();
     }
     this.http.get<Bank[]>(environment.apiUrl + 'banks').subscribe(result => {
       this.banks = result;
@@ -63,26 +63,6 @@ export class UploadComponent implements OnInit {
 
   uploadToServer(body: FormData) {
     if (this.isLoggedIn) { this.uploadWithUser(body); } else { this.uploadWithoutUser(body); }
-  }
-
-  get(): void {
-    this.http.get<CsvFile[]>(environment.apiUrl + 'upload', {headers: this.header}).subscribe(result => {
-      this.files = result;
-    }, error => console.log(error));
-  }
-
-  remove(id: any): void {
-    this.http.delete<CsvFile>(environment.apiUrl + 'upload/' + id).subscribe(
-      (val) => {
-        console.log('DELETE call successful');
-        this.get();
-      },
-      response => {
-        console.log('DELETE call in error', response);
-      },
-      () => {
-        console.log('The DELETE observable is now completed. ');
-      });
   }
 
   uploadWithUser(body: FormData) {

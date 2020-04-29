@@ -1,0 +1,32 @@
+<h3 style="padding: 10px; margin: 5px"*ngIf="isLoggedIn && files.length > 0">Your uploaded files</h3>
+<div class="col-sm-10">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Upload date</th>
+      <th>Transactions</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let f of files; let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{f.name}}</td>
+      <td>{{f.uploadDate}}</td>
+      <td>
+        <button class="btn btn-info" (click)="toggle(f)">Show transactions</button>
+        <ul *ngIf="selectedFile == f">
+          <div *ngFor="let t of f.transactions" >
+            <li>Name: {{t.beneficiaryOrPayerName}}, Details: {{t.details}}, Date: {{t.date}}</li>
+          </div>
+        </ul>
+      </td>
+      <td>
+        <button class="btn btn-danger" (click)="remove(f.id)">Delete file and transactions</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
