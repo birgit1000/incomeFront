@@ -13,7 +13,7 @@
     </ul>
   </div>
   <hr class="solid">
-  <form (ngSubmit)="upload()" [formGroup]="form" >
+  <form (ngSubmit)="upload()" [formGroup]="form">
     <input ng-model="file_upload" name="file" type="file" id="file" (change)="fileChange($event)" #fileInput>
     <select>
       <option
@@ -25,4 +25,3 @@
     <button class="btn btn-info" type="submit" style="margin: 5px; margin-left:30px">Upload</button>
   </form>
 </div>
-

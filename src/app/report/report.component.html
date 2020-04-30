@@ -1,4 +1,6 @@
 <div class="container-fluid">
+  <h4 style="margin-top: 5px">New income statement report</h4>
+  <li *ngIf="isLoggedIn">Define the start date and end date for your report</li>
   <hr class="solid">
      <div>
   <form  [formGroup]="form" (ngSubmit)="generateReportForUser()" *ngIf="isLoggedIn">

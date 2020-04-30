@@ -6,17 +6,18 @@
       <tr>
         <th></th>
         <th>Name</th>
+        <th>Type</th>
         <th>Beneficiary Or Payer Account of Transaction</th>
         <th>Beneficiary Or Payer Name of Transaction</th>
         <th>Details of Transaction</th>
         <th>Income Statement Type of Transaction</th>
-        <th></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let r of rules; let i = index">
         <td>{{i + 1}}</td>
         <td>{{r.name}}</td>
+        <td>{{r.type}}</td>
         <td>{{r.transactionBeneficiaryOrPayerAccount}}</td>
         <td>{{r.transactionBeneficiaryOrPayerName}}</td>
         <td>{{r.transactionDetails}}</td>

@@ -4,6 +4,11 @@
 }
 
 .jumbotron {
-  background-color: darkgrey; /* Orange */
-  color: #ffffff;
+  border: 2px solid lavender;
+  color: black;
+  border-radius: 5px;
+}
+
+li{
+  font-size: 13px;
 }

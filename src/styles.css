@@ -19,3 +19,9 @@ td, th {
 select, option, input{
   font-size: 12px;
 }
+
+.jumbotron {
+  border: 2px solid lavender;
+  color: black;
+  border-radius: 5px;
+}

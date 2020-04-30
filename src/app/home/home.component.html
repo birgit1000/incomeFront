@@ -1,45 +1,45 @@
-<div class="container-fluid text-center">
-  <div class="row content">
-    <div class="col-sm-2 sidenav">
-    </div>
-    <div class="col-sm-8 text-left">
-      <h3 style="text-align:center">Income statement report service</h3>
-      <div *ngIf="!isLoggedIn">
-        <h6>To start: </h6>
-        <button class="btn btn-info" routerLink="/upload">Upload new file</button>
-        <button class="btn btn-info" style="margin: 5px;" routerLink="/register">Register</button>
-        <hr class="solid">
-        <h5>You can use income statement report service with or without an account</h5>
-        <div>
-          <p>Without an account:</p>
-          <ul>
-            <li>Your data is not save into the databases and it will be gone after closing the browser</li>
-            <li>All uploaded transactions will be included in the report and report period cannot be definer</li>
-            <li>Rule functionality to speed up the transaction type defining process is disabled</li>
-          </ul>
-          <p>How to use income statement report service without registering new account: </p>
-          <ul>
-            <li> Download your bank account statement file in CVS or XML format from the internet bank</li>
-            <li> Upload your file here</li>
-            <li> Define income statement types for your transactions</li>
-            <li> Get the income statement report which values you can insert to Äriregister</li>
-          </ul>
-        </div>
-      </div>
-      <div *ngIf="isLoggedIn">
-        <h4 style="text-align: center">
-          Welcome back!
-        </h4>
-        <p>How to use income statement report service with an account: </p>
+<div class="container-sm" style="margin-top: 10px">
+  <div class="jumbotron bg-light">
+    <h1 class="display-4">Income statement report service</h1>
+    <p class="card-text">This is a simple and user-friendly application for generating income statement report from your bank statement file</p>
+    <hr class="my-4">
+    <div *ngIf="!isLoggedIn">
+      <h5 class="text-info">To start: </h5>
+      <button class="btn btn-info" routerLink="/upload">Upload new file</button>
+      <button class="btn btn-info" style="margin: 5px;" routerLink="/register">Register</button>
+      <hr class="solid">
+      <h6 class="card-text">You can use income statement report service with or without an account</h6>
+      <div>
+        <p class="text-break">Without an account:</p>
+        <ul>
+          <li>Your data is not save into the databases and it will be gone after closing the browser</li>
+          <li>All uploaded transactions will be included in the report and report period cannot be definer</li>
+          <li>Rule functionality to speed up the transaction type defining process is disabled</li>
+        </ul>
+        <p>How to use income statement report service without registering new account: </p>
         <ul>
           <li> Download your bank account statement file in CVS or XML format from the internet bank</li>
           <li> Upload your file here</li>
           <li> Define income statement types for your transactions</li>
-          <li> Define rules to speed up the transaction type defining process</li>
-          <li> Get the income statement report for your defined period</li>
-          <li> Insert report values to Äriregister</li>
+          <li> Get the income statement report which values you can insert to Äriregister</li>
         </ul>
       </div>
     </div>
+    <div *ngIf="isLoggedIn">
+      <p class="text-break">How to use income statement report service with an account: </p>
+      <ul>
+        <li> Download your bank account statement file in CVS or XML format from the internet bank</li>
+        <li> Upload your file here</li>
+        <li> Define income statement types for your transactions</li>
+        <li> Define rules to speed up the transaction type defining process</li>
+        <li> Get the income statement report for your defined period</li>
+        <li> Insert report values to Äriregister</li>
+      </ul>
+      <p class="lead">
+        <button class="btn btn-info" routerLink="/upload">Upload new file</button>
+      </p>
+    </div>
   </div>
 </div>
+
+

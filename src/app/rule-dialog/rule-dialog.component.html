@@ -5,7 +5,7 @@
   <div class="alert alert-warning"  role="alert" *ngIf=isError>
     <strong>{{alertMessage}}</strong>
   </div>
-  <form [formGroup]="formGroup" (ngSubmit)="submit()" class="form">
+  <form [formGroup]="formGroup" novalidate (ngSubmit)="submit()" class="form">
     <h3 style="padding-bottom: 10px">Add new rule</h3>
     <ul>
       <li>
@@ -22,7 +22,7 @@
     <div class="form-group input-group-lg">
       <label for="name">Rule name: </label>
       <input class="form-control" placeholder="If no name provided then rule is named as Default"
-             formControlName="name" ng-required="required" id="name">
+             formControlName="name" id="name">
     </div>
     <div class="form-group input-group-lg">
       <label for="transactionBeneficiaryOrPayerAccount">Define Beneficiary Or Payer Account of Transaction: </label>
@@ -38,17 +38,20 @@
     <div class="form-group input-group-lg">
       <label for="transactionDetails">Define Details of Transaction:</label>
       <input class="form-control" placeholder="e.g. Salary" formControlName="transactionDetails"
-             id="transactionDetails" required>
+             id="transactionDetails">
+      <b style="color: red" *ngIf="this.emptyRule && this.submitted">One of these - details, account name or number - has to be filled</b> <br>
     </div>
     <label id="example-radio-group-label">Rule type: </label>
-    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="type">
+    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="type" required>
+      <b style="color: red" *ngIf="formGroup.get('type').hasError('required') && this.submitted">Rule type is required</b> <br>
       <mat-radio-button class="example-radio-button" *ngFor="let t of types" [value]="t">
         {{t}}
       </mat-radio-button>
     </mat-radio-group>
     <label>Income Statement Type of Transaction:</label>
-    <div class="form-group dropdown-menu-left-lg" required>
-      <select formControlName="incomeStatementType">
+    <div class="form-group dropdown-menu-left-lg">
+      <b style="color: red" *ngIf="formGroup.get('incomeStatementType').hasError('required') && this.submitted">Income statement type is required</b> <br>
+      <select formControlName="incomeStatementType" required>
         <option
           *ngFor="let type of incomeStatementTypeList; let j = index"
           [ngValue]="this.type">

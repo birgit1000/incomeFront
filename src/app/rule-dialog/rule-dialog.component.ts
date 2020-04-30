@@ -7,6 +7,7 @@ import {Rule} from '../Models/Rule';
 import {environment} from '../../environments/environment';
 import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
+import {ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-rule-dialog',
@@ -26,6 +27,8 @@ export class RuleDialogComponent implements OnInit {
   header = new HttpHeaders().set('Authorization', this.tokenStorage.getToken());
   type: string;
   types: string[] = ['Contains', 'Begins', 'Ends'];
+  submitted = false;
+  emptyRule = false;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialogRef: MatDialogRef<RuleDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public rule: Rule, private authService: AuthService, private tokenStorage: TokenStorageService,
@@ -37,10 +40,14 @@ export class RuleDialogComponent implements OnInit {
     }
   }
 
+  get f() { return this.formGroup.controls; }
+
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.createForm();
+      this.submitted = false;
+      this.emptyRule = false;
       this.http.get<IncomeStatementType[]>(environment.apiUrl + 'incomeStatements')
         .subscribe(result => {
           this.incomeStatementTypeList = result;
@@ -53,33 +60,46 @@ export class RuleDialogComponent implements OnInit {
       name: [null],
       transactionBeneficiaryOrPayerAccount: [this.transactionBeneficiaryOrPayerAccount],
       transactionBeneficiaryOrPayerName: [this.transactionBeneficiaryOrPayerName],
-      transactionDetails: [this.details, Validators.required],
+      transactionDetails: [this.details],
       incomeStatementType: [null, Validators.required],
       type: [null, Validators.required]
     });
   }
 
   submit() {
+    this.submitted = true;
+
+    if (this.formGroup.invalid) {
+      return;
+    }
+    // tslint:disable-next-line:no-conditional-assignment triple-equals
+    if (this.formGroup.controls.transactionBeneficiaryOrPayerAccount.value === null
+      || this.formGroup.controls.transactionBeneficiaryOrPayerName.value === null
+      || this.formGroup.controls.transactionDetails.value === null) {
+        this.emptyRule = true;
+        return;
+    }
+
     this.http.post(environment.apiUrl + 'rule',
-      this.formGroup.value, {headers: this.header})
-      .subscribe(
-        (val) => {
-          console.log('POST call successful value returned in body',
-            val);
-          this.isSuccess = true;
-          this.alertMessage = 'Rule inserted successfully!';
-          console.log(this.formGroup.value);
-          this.dialogRef.close();
-          window.location.reload();
-        },
-        response => {
-          console.log('POST call in error', response);
-          this.isError = true;
-          this.alertMessage = 'Rule was not inserted. Try again!';
-        },
-        () => {
-          console.log('The POST observable is now completed. ');
-        });
+        this.formGroup.value, {headers: this.header})
+        .subscribe(
+          (val) => {
+            console.log('POST call successful value returned in body',
+              val);
+            this.isSuccess = true;
+            this.alertMessage = 'Rule inserted successfully!';
+            console.log(this.formGroup.value);
+            this.dialogRef.close();
+            window.location.reload();
+          },
+          response => {
+            console.log('POST call in error', response);
+            this.isError = true;
+            this.alertMessage = 'Rule was not inserted. Try again!';
+          },
+          () => {
+            console.log('The POST observable is now completed. ');
+          });
   }
 
   close(): void {
