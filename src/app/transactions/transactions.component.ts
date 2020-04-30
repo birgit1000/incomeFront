@@ -30,6 +30,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.transactionList = [];
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.getTransactionsByUser();

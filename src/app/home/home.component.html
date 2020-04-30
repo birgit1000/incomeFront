@@ -1,6 +1,6 @@
 <div class="container-sm" style="margin-top: 10px">
   <div class="jumbotron bg-light">
-    <h1 class="display-4">Income statement report service</h1>
+    <h4 class="display-4">Income statement report service</h4>
     <p class="card-text">This is a simple and user-friendly application for generating income statement report from your bank statement file</p>
     <hr class="my-4">
     <div *ngIf="!isLoggedIn">
@@ -10,18 +10,28 @@
       <hr class="solid">
       <h6 class="card-text">You can use income statement report service with or without an account</h6>
       <div>
-        <p class="text-break">Without an account:</p>
+        <p class="text-break">How to use income statement report service with an account: </p>
         <ul>
-          <li>Your data is not save into the databases and it will be gone after closing the browser</li>
-          <li>All uploaded transactions will be included in the report and report period cannot be definer</li>
-          <li>Rule functionality to speed up the transaction type defining process is disabled</li>
+          <li> Download your bank account statement file in CVS or XML format from the internet bank</li>
+          <li> Upload your file here</li>
+          <li> Define income statement types for your transactions</li>
+          <li> Define rules to speed up the transaction type defining process</li>
+          <li> Get the income statement report for your defined period</li>
+          <li> Insert report values to Äriregister</li>
         </ul>
-        <p>How to use income statement report service without registering new account: </p>
+        <p>How to use income statement report service without registering a new account: </p>
         <ul>
           <li> Download your bank account statement file in CVS or XML format from the internet bank</li>
           <li> Upload your file here</li>
           <li> Define income statement types for your transactions</li>
           <li> Get the income statement report which values you can insert to Äriregister</li>
+        </ul>
+        <hr class="solid">
+        <p class="text-break">What is the difference? Without an account:</p>
+        <ul>
+          <li>Your data is not save into the database and it will be deleted after closing the browser</li>
+          <li>All uploaded transactions will be included in the report and report period cannot be definer</li>
+          <li>Rule functionality to speed up the transaction type defining process is disabled</li>
         </ul>
       </div>
     </div>

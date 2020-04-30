@@ -1,5 +1,4 @@
 import {IncomeStatementType} from './IncomeStatementType';
-import {CsvFile} from './CsvFile';
 
 export class Transaction {
   id: string;

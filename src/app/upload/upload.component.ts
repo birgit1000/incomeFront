@@ -8,7 +8,6 @@ import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {Router} from '@angular/router';
 import {Transaction} from '../Models/Transaction';
-import {ReportRow} from '../Models/ReportRow';
 
 @Component({
   selector: 'app-upload',

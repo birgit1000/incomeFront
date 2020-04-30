@@ -47,5 +47,5 @@
           </tbody>
         </table>
       </form>
-  <button class="btn btn-success" style="float: right; margin: 5px"  routerLink="/report">Generate report</button>
+  <button class="btn btn-success" style="float: right; margin: 5px" *ngIf="transactionList != null && transactionList.length > 0" routerLink="/report">Go to generate report</button>
 </div>

@@ -1,5 +1,5 @@
 <h3 style="padding: 5px" *ngIf="isLoggedIn && allReports.length > 0">Your income statement reports</h3>
-<div class="col-sm-8">
+<div class="col-sm-10">
   <table class="table table-striped">
     <thead>
     <tr>
@@ -7,6 +7,7 @@
       <th>Date made</th>
       <th>Start date</th>
       <th>End date</th>
+      <th></th>
       <th></th>
     </tr>
     </thead>
@@ -19,11 +20,19 @@
       <td>
         <div *ngFor="let r of f.rows">
           <li> Type: {{r.incomeStatementType}}, Sum: {{r.sum}}
+            <button class="btn btn-lg" (click)="toggle(r)"><i>Show transactions</i></button>
+            <ul *ngIf="selectedRow == r">
+              <div *ngFor="let t of r.transactions">
+                  <li> Name: {{t.beneficiaryOrPayerName}}, Account: {{t.beneficiaryOrPayerAccount}},
+                    Details: {{t.details}}, Date: {{t.date}}, Amount: {{t.amount}}</li>
+                </div>
+            </ul>
+          </li>
         </div>
       </td>
-              <td>
-                <button class="btn btn-danger" (click)="remove(f.id)">Delete report</button>
-              </td>
+      <td>
+        <button class="btn btn-danger" (click)="remove(f.id)">Delete report</button>
+      </td>
     </tr>
     </tbody>
   </table>

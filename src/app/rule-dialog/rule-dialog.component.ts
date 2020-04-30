@@ -7,7 +7,6 @@ import {Rule} from '../Models/Rule';
 import {environment} from '../../environments/environment';
 import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
-import {ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-rule-dialog',
@@ -70,14 +69,13 @@ export class RuleDialogComponent implements OnInit {
     this.submitted = true;
 
     if (this.formGroup.invalid) {
-      return;
-    }
-    // tslint:disable-next-line:no-conditional-assignment triple-equals
-    if (this.formGroup.controls.transactionBeneficiaryOrPayerAccount.value === null
-      || this.formGroup.controls.transactionBeneficiaryOrPayerName.value === null
-      || this.formGroup.controls.transactionDetails.value === null) {
+      if (this.formGroup.controls.transactionBeneficiaryOrPayerAccount.value === null
+        || this.formGroup.controls.transactionBeneficiaryOrPayerName.value === null
+        || this.formGroup.controls.transactionDetails.value === null) {
         this.emptyRule = true;
         return;
+    }
+      return;
     }
 
     this.http.post(environment.apiUrl + 'rule',

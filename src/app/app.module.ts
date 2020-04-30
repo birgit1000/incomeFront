@@ -25,9 +25,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
-import { ReportDialogComponent } from './all-reports/report-dialog.component';
+import {ReportDialogComponent} from './all-reports/report-dialog.component';
 import {MatMenuModule} from '@angular/material/menu';
-import { AllFilesComponent } from './all-files/all-files.component';
+import {AllFilesComponent} from './all-files/all-files.component';
 import {MatCardModule} from '@angular/material/card';
 
 
