@@ -10,6 +10,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {ReportDialogComponent} from './all-reports/report-dialog.component';
 import {AllFilesComponent} from './all-files/all-files.component';
+import {InfoComponent} from './info/info.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'all-reports', component: ReportDialogComponent },
-  { path: 'all-files', component: AllFilesComponent }
+  { path: 'all-files', component: AllFilesComponent },
+  { path: 'info', component: InfoComponent }
 ];
 
 @NgModule({

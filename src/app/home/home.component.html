@@ -1,55 +1,47 @@
 <div class="container-sm" style="margin-top: 10px">
   <div class="jumbotron bg-light">
-    <h4 class="display-4">Income statement service</h4>
-    <p class="card-text">This is a simple and user-friendly application for generating income statement from your bank statement file</p>
+    <h5 *ngIf="isLoggedIn" class="text-info" style="text-align: center">Welcome back!</h5>
+    <h4 class="display-4" style="text-align: center">Income statement service</h4>
+    <p class="text-dark" style="text-align: center">Generate income statements with ease</p>
     <hr class="my-4">
     <div *ngIf="!isLoggedIn">
-      <h5 class="text-info">To start: </h5>
-      <button class="btn btn-info" routerLink="/upload">Upload new file</button>
-      <button class="btn btn-info" style="margin: 5px;" routerLink="/register">Register</button>
+      <div class="row">
+        <div class="col-sm-4">
+          <h5 class="text-info">Upload bank statement file</h5>
+          <button class="btn btn-info" routerLink="/upload">Upload new file</button>
+        </div>
+        <div class="col-sm">
+          <p class="small">Download your bank account statement file in CSV or XML format from the internet bank and
+            upload here</p>
+        </div>
+      </div>
       <hr class="solid">
-      <h6 class="card-text">You can use income statement service with or without an account</h6>
-      <div>
-        <p class="text-break">How to use income statement service with an account: </p>
-        <ul>
-          <li> Download your bank account statement file in CSV or XML format from the internet bank</li>
-          <li> Upload your file here</li>
-          <li> Define income statement types for your transactions</li>
-          <li> Define rules to speed up the transaction type defining process</li>
-          <li> Get the income statement for your defined period</li>
-          <li> Insert report values to Äriregister</li>
-        </ul>
-        <p>How to use income statement service without registering a new account: </p>
-        <ul>
-          <li> Download your bank account statement file in CSV or XML format from the internet bank</li>
-          <li> Upload your file here</li>
-          <li> Define income statement types for your transactions</li>
-          <li> Get the income statement report which values you can insert to Äriregister</li>
-        </ul>
+      <div class="row">
+        <div class="col-sm-4">
+          <h5 class="text-info">Create an account</h5>
+          <button class="btn btn-info" style="margin: 5px;" routerLink="/register">Register</button>
+        </div>
+        <div class="col-sm">
+          <p class="small">Create new account to save your reports, create rules to automatize transaction type defining
+            process and use all available functionality</p>
+        </div>
         <hr class="solid">
-        <p class="text-break">What is the difference? Without an account:</p>
-        <ul>
-          <li>Your data is not save into the database and it will be deleted after closing the browser</li>
-          <li>All uploaded transactions will be included in the report and report period cannot be defined</li>
-          <li>Rule functionality to speed up the transaction type defining process is disabled</li>
-        </ul>
       </div>
     </div>
     <div *ngIf="isLoggedIn">
-      <p class="text-break">How to use income statement service with an account: </p>
-      <ul>
-        <li> Download your bank account statement file in CSV or XML format from the internet bank</li>
-        <li> Upload your file here</li>
-        <li> Define income statement types for your transactions</li>
-        <li> Define rules to speed up the transaction type defining process</li>
-        <li> Get the income statement for your defined period</li>
-        <li> Insert report values to Äriregister</li>
-      </ul>
-      <p class="lead">
-        <button class="btn btn-info" routerLink="/upload">Upload a new file</button>
-      </p>
+      <div class="row">
+        <div class="col-sm-4">
+          <h5 class="text-info">Upload bank statement file</h5>
+          <button class="btn btn-info" routerLink="/upload">Upload new file</button>
+        </div>
+        <div class="col-sm">
+          <p class="small">Download your bank account statement file in CSV or XML format from the internet bank and
+            upload here</p>
+        </div>
+      </div>
+      <br>
+      <p class="text-break">Not sure how to start? Click<a routerLink="/info"> here</a></p>
     </div>
   </div>
 </div>
-
 

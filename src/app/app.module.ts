@@ -29,6 +29,7 @@ import {ReportDialogComponent} from './all-reports/report-dialog.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {AllFilesComponent} from './all-files/all-files.component';
 import {MatCardModule} from '@angular/material/card';
+import { InfoComponent } from './info/info.component';
 
 
 const routes: Routes = [];
@@ -48,7 +49,8 @@ const routes: Routes = [];
     RegisterComponent,
     LoginComponent,
     ReportDialogComponent,
-    AllFilesComponent
+    AllFilesComponent,
+    InfoComponent
   ],
   entryComponents: [RuleDialogComponent],
   imports: [

@@ -1,4 +1,5 @@
 <div class="container-fluid">
+  <meta meta charset=utf-8>
   <h3 style="margin-top: 10px">Your transactions</h3>
     <div class="col-sm-1"></div>
       <form [formGroup]="formGroup">
@@ -9,10 +10,10 @@
             <th></th>
             <th>Date</th>
             <th>Amount</th>
+            <th>Currency</th>
             <th>Beneficiary Or Payer Name</th>
             <th>Beneficiary Or Payer Account</th>
             <th>Details</th>
-            <th>Currency</th>
             <th>Debit/Credit</th>
             <th>Income Statement Type</th>
             <th></th>
@@ -23,10 +24,10 @@
             <td>{{i + 1}}</td>
             <td>{{t.date}}</td>
             <td>{{t.amount}}</td>
+            <td>{{t.currency}}</td>
             <td>{{t.beneficiaryOrPayerName}}</td>
             <td>{{t.beneficiaryOrPayerAccount}}</td>
             <td>{{t.details}}</td>
-            <td>{{t.currency}}</td>
             <td>{{t.debitOrCredit}}</td>
             <td>
               <div *ngIf="t.incomeStatementType==='MÄÄRAMATA' && !!t.incomeStatementType">Current value: <b>{{t.incomeStatementType}} </b>  </div>
